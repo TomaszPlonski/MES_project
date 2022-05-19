@@ -1,15 +1,14 @@
 package com.github.tomaszplonski.mes_project.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Getter @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @MappedSuperclass
 public class Product {
 
