@@ -19,6 +19,8 @@ public class Order {
 
     private String name;
 
+    private double orderValue;
+
     @ManyToOne
     @JoinColumn(name = "purchaser_id")
     private Purchaser purchaser;
