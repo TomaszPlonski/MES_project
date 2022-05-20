@@ -1,0 +1,9 @@
+#create expansion Joints
+GET localhost:8080/test
+Content-Type: application/x-www-form-urlencoded
+
+###
+
+#show all orders
+GET localhost:8080/order/all
+Content-Type: application/x-www-form-urlencoded
