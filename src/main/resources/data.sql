@@ -11,4 +11,3 @@ insert into orders(name, order_value, order_handler_id, purchaser_id) value ('S2
 insert into orders(name, order_value, order_handler_id, purchaser_id) value ('S3 Poznań - Białystok',95.00,1,2);
 insert into orders(name, order_value, order_handler_id, purchaser_id) value ('S4 Białystok - Szczecin',210.09,2,1);
 insert into orders(name, order_value, order_handler_id, purchaser_id) value ('S5 Szczecin - Przemyśl',300.00,3,1);
-
