@@ -26,8 +26,8 @@ public class Order {
     private Purchaser purchaser;
 
     @ManyToOne
-    @JoinColumn(name = "order_handler_id")
-    private OrderHandler orderHandler;
+    @JoinColumn(name = "supervisor_id")
+    private Supervisor supervisor;
 
     @OneToMany(mappedBy = "order")
     private Set<ExpansionJoint> expansionJoints = new HashSet<>();

@@ -4,7 +4,7 @@ package com.github.tomaszplonski.mes_project.controller;
 import com.github.tomaszplonski.mes_project.model.ExpansionJoint;
 import com.github.tomaszplonski.mes_project.model.Order;
 import com.github.tomaszplonski.mes_project.repository.ExpansionJointRepository;
-import com.github.tomaszplonski.mes_project.repository.OrderHandlerRepository;
+import com.github.tomaszplonski.mes_project.repository.SupervisorRepository;
 import com.github.tomaszplonski.mes_project.repository.OrderRepository;
 import com.github.tomaszplonski.mes_project.repository.PurchaserRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ import java.util.Optional;
 @RestController
 public class TestController {
 
-    private final OrderHandlerRepository orderHandlerRepository;
+    private final SupervisorRepository supervisorRepository;
     private final PurchaserRepository purchaserRepository;
     private final OrderRepository orderRepository;
     private final ExpansionJointRepository expansionJointRepository;

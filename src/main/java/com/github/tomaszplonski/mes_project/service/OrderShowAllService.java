@@ -1,14 +1,11 @@
 package com.github.tomaszplonski.mes_project.service;
 
 import com.github.tomaszplonski.mes_project.model.Order;
-import com.github.tomaszplonski.mes_project.repository.ExpansionJointRepository;
 import com.github.tomaszplonski.mes_project.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +23,7 @@ public class OrderShowAllService implements OrderService{
 
         orders.forEach(o->orderShowAll.add(OrderShowAll.builder()
                                 .name(o.getName())
-                                .orderHandlerName(o.getOrderHandler().getFullName())
+                                .orderSupervisor(o.getSupervisor().getFullName())
                                 .purchaserName(o.getPurchaser().getName())
                                 .orderValue(o.getOrderValue())
                                 .isProductionStarted(o.getExpansionJoints().stream()

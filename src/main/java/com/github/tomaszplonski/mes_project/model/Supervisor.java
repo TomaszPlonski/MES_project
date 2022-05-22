@@ -10,8 +10,8 @@ import java.util.Set;
 @Entity @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name ="order_handlers")
-public class OrderHandler {
+@Table(name ="supervisors")
+public class Supervisor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -20,7 +20,7 @@ public class OrderHandler {
 
     private String lastName;
 
-    @OneToMany(mappedBy = "orderHandler")
+    @OneToMany(mappedBy = "supervisor")
     private Set<Order> orders = new HashSet<>();
 
     @Transient

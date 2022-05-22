@@ -24,7 +24,7 @@ public class OrderController {
         List<OrderShowAll> testList = orderShowAllService.orderShowAll();
         testList.stream()
                 .forEach(l->log.info("==============\n" + l.getName() +"\n"
-                        + l.getOrderHandlerName() +"\n"
+                        + l.getOrderSupervisor() +"\n"
                         + l.getOrderValue() +"\n"
                         + l.getPurchaserName() +"\n" +
                         l.isProductionEnded()));

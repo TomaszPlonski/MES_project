@@ -12,7 +12,7 @@ public class OrderShowAll {
     private String name;
     private double orderValue;
     private String purchaserName;
-    private String orderHandlerName;
+    private String orderSupervisor;
     private boolean isProductionStarted;
     private boolean isProductionEnded;
 }
