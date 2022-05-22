@@ -20,7 +20,7 @@ public class Purchaser {
     private String name;
 
     private String adres;
-//
-//    @OneToMany(mappedBy = "purchaser")
-//    private Set<Order> orders = new HashSet<>();
+
+    @OneToMany(mappedBy = "purchaser")
+    private Set<Order> orders = new HashSet<>();
 }
