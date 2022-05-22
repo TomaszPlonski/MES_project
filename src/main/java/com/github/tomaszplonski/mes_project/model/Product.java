@@ -4,18 +4,30 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@MappedSuperclass
-public abstract class Product {
+@Entity(name = "Product")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private LocalDate starOfProduction;
+    @OneToMany(mappedBy = "product")
+    private List<PhaseExecution> phaseExecution = new ArrayList<>();
 
-    private LocalDate estimatedEndOfProduction;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+
+
+
+
+
 }

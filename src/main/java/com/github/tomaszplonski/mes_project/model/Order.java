@@ -30,6 +30,6 @@ public class Order {
     private Supervisor supervisor;
 
     @OneToMany(mappedBy = "order")
-    private Set<ExpansionJoint> expansionJoints = new HashSet<>();
+    private Set<Product> products = new HashSet<>();
 
 }
