@@ -22,8 +22,8 @@ public class ProductionPhase {
 
     private String name;
 
-    private int duration;
+    private int defaultDuration;
 
     @OneToMany(mappedBy = "productionPhase")
-    private Set<PhaseExecution> phaseExecutions = new HashSet<>();
+    private Set<StageExecution> stageExecution = new HashSet<>();
 }

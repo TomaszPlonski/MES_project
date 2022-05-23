@@ -3,7 +3,6 @@ package com.github.tomaszplonski.mes_project.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,16 +17,13 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private String type;
+
     @OneToMany(mappedBy = "product")
-    private List<PhaseExecution> phaseExecution = new ArrayList<>();
+    private List<StageExecution> stageExecution = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
-
-
-
-
-
 
 }

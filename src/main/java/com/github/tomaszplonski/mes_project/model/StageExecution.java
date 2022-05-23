@@ -12,17 +12,19 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name ="phase_execution")
-public class PhaseExecution {
+public class StageExecution {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private LocalDate starOfPhase;
+    private int duration;
 
-    private LocalDate estimatedEndOfPhase;
+    private LocalDate starOfStage;
 
-    private LocalDate actualEndOfPhase;
+    private LocalDate estimatedEndOfStage;
+
+    private LocalDate actualEndOfStage;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -35,4 +37,10 @@ public class PhaseExecution {
     @ManyToOne
     @JoinColumn(name = "production_executor_id")
     private PhaseExecutor phaseExecutor;
+
+    @PrePersist
+    public void prePersist(){
+        estimatedEndOfStage = starOfStage.plusDays(duration);
+    }
+
 }

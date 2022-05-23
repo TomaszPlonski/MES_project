@@ -23,5 +23,5 @@ public class PhaseExecutor {
     private String lastName;
 
     @OneToMany(mappedBy = "phaseExecutor")
-    private Set<PhaseExecution> phaseExecutions = new HashSet<>();
+    private Set<StageExecution> stageExecution = new HashSet<>();
 }
