@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name ="phase_execution")
+@Table(name ="stage_execution")
 public class StageExecution {
 
     @Id

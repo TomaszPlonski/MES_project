@@ -21,16 +21,16 @@ public class OrderShowAllService implements OrderService{
         List<Order> orders = orderRepository.findAll();
         List<OrderShowAll> orderShowAll = new ArrayList<>();
 
-        orders.forEach(o->orderShowAll.add(OrderShowAll.builder()
-                                .name(o.getName())
-                                .orderSupervisor(o.getSupervisor().getFullName())
-                                .purchaserName(o.getPurchaser().getName())
-                                .orderValue(o.getOrderValue())
-                                .isProductionStarted(o.getExpansionJoints().stream()
-                                        .anyMatch(ej->ej.getStarOfProduction()==null))
-                                .isProductionEnded(o.getExpansionJoints().stream()
-                                        .allMatch(ej->ej.getActualEndOfProduction()!=null))
-                                .build()));
+//        orders.forEach(o->orderShowAll.add(OrderShowAll.builder()
+//                                .name(o.getName())
+//                                .orderSupervisor(o.getSupervisor().getFullName())
+//                                .purchaserName(o.getPurchaser().getName())
+//                                .orderValue(o.getOrderValue())
+//                                .isProductionStarted(o.getExpansionJoints().stream()
+//                                        .anyMatch(ej->ej.getStarOfProduction()==null))
+//                                .isProductionEnded(o.getExpansionJoints().stream()
+//                                        .allMatch(ej->ej.getActualEndOfProduction()!=null))
+//                                .build()));
 
         return orderShowAll;
     }

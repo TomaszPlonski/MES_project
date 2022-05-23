@@ -9,7 +9,7 @@ import java.util.List;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "Product")
+@Entity(name = "products")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Product {
 
