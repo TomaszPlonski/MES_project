@@ -14,7 +14,7 @@ import java.time.temporal.ChronoUnit;
 
 @Service
 @RequiredArgsConstructor
-public class StagesOfProduction implements Stages{
+public class StagesService implements DefaultStagesService {
 
     private final StageExecutionRepository stageExecutionRepository;
 
@@ -57,8 +57,21 @@ public class StagesOfProduction implements Stages{
             shift[0] = Math.toIntExact(
                     ChronoUnit.DAYS.between(
                             stageExecutionRepository.save(p).getEstimatedEndOfStage(),
-                            LocalDate.now()));
+                            newEstimatedEndOfStage));
         });
+        return shift[0];
+    }
+
+
+    @Override
+    @Transactional
+    public Integer howManyDaysLeftToEstimatedEndOfStage(Long stageId) {
+        final Integer[] shift = {null};
+
+        stageExecutionRepository.findById(stageId).ifPresent(p->
+            shift[0] = Math.toIntExact(
+                    ChronoUnit.DAYS.between(LocalDate.now(),
+                            stageExecutionRepository.save(p).getEstimatedEndOfStage())));
         return shift[0];
     }
 }

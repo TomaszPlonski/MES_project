@@ -5,7 +5,7 @@ import com.github.tomaszplonski.mes_project.model.PhaseExecutor;
 import com.github.tomaszplonski.mes_project.model.Product;
 import com.github.tomaszplonski.mes_project.model.ProductionPhase;
 import com.github.tomaszplonski.mes_project.repository.*;
-import com.github.tomaszplonski.mes_project.service.product.production.StagesOfProduction;
+import com.github.tomaszplonski.mes_project.service.product.production.StagesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,7 @@ public class TestController {
     private final ProductRepository productRepository;
     private final PhaseExecutorRepository phaseExecutorRepository;
     private final ProductionPhaseRepository productionPhaseRepository;
-    private final StagesOfProduction stagesOfProduction;
+    private final StagesService stagesService;
 
 
     @GetMapping("/test")
@@ -32,8 +32,8 @@ public class TestController {
         PhaseExecutor phaseExecutor = phaseExecutorRepository.getById(1L);
         ProductionPhase productionPhase = productionPhaseRepository.getById(2L);
 
-        log.info(stagesOfProduction.StageInitialization(chair,productionPhase,phaseExecutor,productionPhase.getDefaultDuration(),LocalDate.now()).toString());
-        log.info(stagesOfProduction.EndOfStage(1L).toString());
+        log.info(stagesService.StageInitialization(chair,productionPhase,phaseExecutor,productionPhase.getDefaultDuration(),LocalDate.now()).toString());
+        log.info(stagesService.EndOfStage(1L).toString());
 
     }
 }
