@@ -1,3 +1,18 @@
+insert into products(type) values ('chair');
+insert into products(type) values ('table');
+
+insert into phase_executors(first_name,last_name) values ('Stefan','Feld');
+insert into phase_executors(first_name,last_name) values ('Uwe','Rosenberg');
+
+insert into production_phases(name, default_duration) values ('Cutting out: table legs',1);
+insert into production_phases(name, default_duration) values ('Cutting out: chair legs',1);
+insert into production_phases(name, default_duration) values ('Cutting out: table top',1);
+insert into production_phases(name, default_duration) values ('Cutting out: chair seat',1);
+insert into production_phases(name, default_duration) values ('Wood planing', 2);
+insert into production_phases(name, default_duration) values ('Wood painting', 3);
+insert into production_phases(name, default_duration) values ('Assembling the furniture', 1);
+
+
 # insert into order_handlers(first_name, last_name) values ('Eric', 'Lang');
 # insert into order_handlers(first_name, last_name) values ('Reiner', 'Knizia');
 # insert into order_handlers(first_name, last_name) values ('Richard', 'Garfield');
