@@ -18,7 +18,7 @@ public class StageExecution {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long nextStepId;
+    private Long nextStepId;
 
     private int duration;
 

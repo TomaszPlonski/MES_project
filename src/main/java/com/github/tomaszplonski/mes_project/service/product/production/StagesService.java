@@ -26,7 +26,6 @@ public class StagesService implements DefaultStagesService {
                 .productionPhase(productionPhase)
                 .phaseExecutor(phaseExecutor)
                 .duration(duration)
-                .startOfStage(startOfStage)
                 .build());
     }
 
@@ -98,5 +97,13 @@ public class StagesService implements DefaultStagesService {
                     updatedStage[0] = stageExecutionRepository.save(s);
                 }));
         return updatedStage[0];
+    }
+
+    @Transactional
+    public StageExecution stageQueuing(StageExecution previousStage, StageExecution nextStage){
+        nextStage.setStartOfStage(previousStage.getEstimatedEndOfStage());
+        previousStage.setNextStepId(stageExecutionRepository.save(nextStage).getId());
+        stageExecutionRepository.save(previousStage);
+        return nextStage;
     }
 }
