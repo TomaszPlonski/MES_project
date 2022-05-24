@@ -1,6 +1,7 @@
 package com.github.tomaszplonski.mes_project.model;
 
 import lombok.*;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,6 +22,9 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     private List<StageExecution> stageExecution = new ArrayList<>();
+
+    @Nullable
+    private Long activeStageId;
 
     @ManyToOne
     @JoinColumn(name = "order_id")

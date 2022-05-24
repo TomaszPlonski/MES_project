@@ -18,9 +18,11 @@ public class StageExecution {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private long nextStepId;
+
     private int duration;
 
-    private LocalDate starOfStage;
+    private LocalDate startOfStage;
 
     private LocalDate estimatedEndOfStage;
 
@@ -40,7 +42,7 @@ public class StageExecution {
 
     @PrePersist
     public void prePersist(){
-        estimatedEndOfStage = starOfStage.plusDays(duration);
+        estimatedEndOfStage = startOfStage.plusDays(duration);
     }
 
 }

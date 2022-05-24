@@ -1,5 +1,5 @@
-insert into products(type) values ('chair');
-insert into products(type) values ('table');
+insert into products(type, active_stage_id) values ('chair', 1);
+insert into products(type, active_stage_id) values ('table', 1000);
 
 insert into phase_executors(first_name,last_name) values ('Stefan','Feld');
 insert into phase_executors(first_name,last_name) values ('Uwe','Rosenberg');
