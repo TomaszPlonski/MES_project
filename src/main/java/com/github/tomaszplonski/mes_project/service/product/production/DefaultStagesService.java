@@ -1,6 +1,5 @@
 package com.github.tomaszplonski.mes_project.service.product.production;
 
-import com.github.tomaszplonski.mes_project.model.PhaseExecutor;
 import com.github.tomaszplonski.mes_project.model.Product;
 import com.github.tomaszplonski.mes_project.model.ProductionPhase;
 import com.github.tomaszplonski.mes_project.model.StageExecution;
@@ -17,11 +16,10 @@ public interface DefaultStagesService {
     * @param productionPhase
     * @param phaseExecutor
     * @param duration productPhase got field defaultDuration use it as 'duration' if this is the standard case
-    * @param stratOfStage
     *
     * @return created Stage
     */
-   public StageExecution StageInitialization(Product product, ProductionPhase productionPhase, PhaseExecutor phaseExecutor, int duration, LocalDate startOfStage);
+   public StageExecution StageInitialization(Product product, ProductionPhase productionPhase, int duration, LocalDate startOfStage);
 
    /**
     * Enter the end date of the stage as today's date
@@ -69,7 +67,7 @@ public interface DefaultStagesService {
    public StageExecution changeEstimatedEndOfStage(StageExecution stage, Integer daysToShift);
 
    /**
-    * Change Estimated End Of Stage based on the end date of the previous step
+    * Change Estimated End Of Stage based on the end date of the previous stage
     *
     *
     * @param stage
@@ -79,4 +77,14 @@ public interface DefaultStagesService {
     */
    public StageExecution changeNoActiveEstimatedEndOfStage(StageExecution stage, StageExecution previousStage);
 
+   /**
+    * Sets the start date of nextStage by Estimated End Of Stage of previousStage. Sets id of nextStage to field NextStageId of object previousStage
+    *
+    *
+    * @param previousStage
+    * @param nextStage
+    *
+    * @return updated next Stage
+    */
+   public StageExecution stageQueuing(StageExecution previousStage, StageExecution nextStage);
 }

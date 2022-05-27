@@ -1,6 +1,5 @@
 package com.github.tomaszplonski.mes_project.service.product.production;
 
-import com.github.tomaszplonski.mes_project.model.PhaseExecutor;
 import com.github.tomaszplonski.mes_project.model.Product;
 import com.github.tomaszplonski.mes_project.model.ProductionPhase;
 import com.github.tomaszplonski.mes_project.model.StageExecution;
@@ -20,11 +19,10 @@ public class StagesService implements DefaultStagesService {
 
     @Override
     @Transactional
-    public StageExecution StageInitialization(Product product, ProductionPhase productionPhase, PhaseExecutor phaseExecutor, int duration, LocalDate startOfStage) {
+    public StageExecution StageInitialization(Product product, ProductionPhase productionPhase, int duration, LocalDate startOfStage) {
         return stageExecutionRepository.save(StageExecution.builder()
                 .product(product)
                 .productionPhase(productionPhase)
-                .phaseExecutor(phaseExecutor)
                 .duration(duration)
                 .build());
     }
@@ -99,10 +97,11 @@ public class StagesService implements DefaultStagesService {
         return updatedStage[0];
     }
 
+    @Override
     @Transactional
     public StageExecution stageQueuing(StageExecution previousStage, StageExecution nextStage){
         nextStage.setStartOfStage(previousStage.getEstimatedEndOfStage());
-        previousStage.setNextStepId(stageExecutionRepository.save(nextStage).getId());
+        previousStage.setNextStageId(stageExecutionRepository.save(nextStage).getId());
         stageExecutionRepository.save(previousStage);
         return nextStage;
     }

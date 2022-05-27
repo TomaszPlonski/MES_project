@@ -1,9 +1,6 @@
 insert into products(type) values ('chair');
 insert into products(type) values ('table');
 
-insert into phase_executors(first_name,last_name) values ('Stefan','Feld');
-insert into phase_executors(first_name,last_name) values ('Uwe','Rosenberg');
-
 insert into production_phases(name, default_duration) values ('Cutting out: table legs',1);
 insert into production_phases(name, default_duration) values ('Cutting out: chair legs',1);
 insert into production_phases(name, default_duration) values ('Cutting out: table top',1);
@@ -12,17 +9,16 @@ insert into production_phases(name, default_duration) values ('Wood planing', 2)
 insert into production_phases(name, default_duration) values ('Wood painting', 3);
 insert into production_phases(name, default_duration) values ('Assembling the furniture', 1);
 
+insert into stage_execution(duration,start_of_stage,estimated_end_of_stage,actual_end_of_stage,next_stage_id,product_id,production_phase_id) values (1,DATE_ADD(CURRENT_DATE(),INTERVAL -2 DAY),DATE_ADD(CURRENT_DATE(),INTERVAL -1 DAY),DATE_ADD(CURRENT_DATE(),INTERVAL -1 DAY),2,1,2);
+insert into stage_execution(duration,start_of_stage,estimated_end_of_stage,actual_end_of_stage,next_stage_id,product_id,production_phase_id) values (1,DATE_ADD(CURRENT_DATE(),INTERVAL -1 DAY),CURRENT_DATE(),CURRENT_DATE(),3,1,4);
+insert into stage_execution(duration,start_of_stage,estimated_end_of_stage,actual_end_of_stage,next_stage_id,product_id,production_phase_id) values (2,CURRENT_DATE(),DATE_ADD(CURRENT_DATE(),INTERVAL 2 DAY),null,4,1,5);
+insert into stage_execution(duration,start_of_stage,estimated_end_of_stage,actual_end_of_stage,next_stage_id,product_id,production_phase_id) values (3,DATE_ADD(CURRENT_DATE(),INTERVAL 2 DAY),DATE_ADD(CURRENT_DATE(),INTERVAL 5 DAY),null,5,1,6);
+insert into stage_execution(duration,start_of_stage,estimated_end_of_stage,actual_end_of_stage,next_stage_id,product_id,production_phase_id) values (1,DATE_ADD(CURRENT_DATE(),INTERVAL 5 DAY),DATE_ADD(CURRENT_DATE(),INTERVAL 6 DAY),null,null,1,7);
 
-# insert into order_handlers(first_name, last_name) values ('Eric', 'Lang');
-# insert into order_handlers(first_name, last_name) values ('Reiner', 'Knizia');
-# insert into order_handlers(first_name, last_name) values ('Richard', 'Garfield');
-#
-# insert into purchasers(adres, name) values ('ul. Siedmiogrodzka 9; 01-204 Warszawa', 'Budimex');
-# insert into purchasers(adres, name) values ('ul. Parzniewska 10; 05-800 Pruszków', 'Strabag');
-# insert into purchasers(adres, name) values ('ul. Grzybowska 80/82; 00-844 Warszawa', 'Gulermak');
-#
-# insert into orders(name, order_value, order_handler_id, purchaser_id) value ('S1 Warszawa - Kraków',120000.00,1,1);
-# insert into orders(name, order_value, order_handler_id, purchaser_id) value ('S2 Kraków - Poznań',233567.12,1,2);
-# insert into orders(name, order_value, order_handler_id, purchaser_id) value ('S3 Poznań - Białystok',95420.00,1,2);
-# insert into orders(name, order_value, order_handler_id, purchaser_id) value ('S4 Białystok - Szczecin',210044.09,2,1);
-# insert into orders(name, order_value, order_handler_id, purchaser_id) value ('S5 Szczecin - Przemyśl',300088.00,3,1);
+insert into stage_execution(duration,start_of_stage,estimated_end_of_stage,actual_end_of_stage,next_stage_id,product_id,production_phase_id) values (1,DATE_ADD(CURRENT_DATE(),INTERVAL -4 DAY),DATE_ADD(CURRENT_DATE(),INTERVAL -3 DAY),DATE_ADD(CURRENT_DATE(),INTERVAL -2 DAY),7,2,1);
+insert into stage_execution(duration,start_of_stage,estimated_end_of_stage,actual_end_of_stage,next_stage_id,product_id,production_phase_id) values (1,DATE_ADD(CURRENT_DATE(),INTERVAL -2 DAY),DATE_ADD(CURRENT_DATE(),INTERVAL -1 DAY),null,8,2,3);
+insert into stage_execution(duration,start_of_stage,estimated_end_of_stage,actual_end_of_stage,next_stage_id,product_id,production_phase_id) values (2,DATE_ADD(CURRENT_DATE(),INTERVAL -1 DAY),DATE_ADD(CURRENT_DATE(),INTERVAL 1 DAY),null,9,2,5);
+insert into stage_execution(duration,start_of_stage,estimated_end_of_stage,actual_end_of_stage,next_stage_id,product_id,production_phase_id) values (3,DATE_ADD(CURRENT_DATE(),INTERVAL 1 DAY),DATE_ADD(CURRENT_DATE(),INTERVAL 4 DAY),null,10,2,6);
+insert into stage_execution(duration,start_of_stage,estimated_end_of_stage,actual_end_of_stage,next_stage_id,product_id,production_phase_id) values (1,DATE_ADD(CURRENT_DATE(),INTERVAL 4 DAY),DATE_ADD(CURRENT_DATE(),INTERVAL 5 DAY),null,null,2,7);
+
+insert into orders(name,order_value) VALUES ('Pierwsze zamówienie',10250.50);

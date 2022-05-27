@@ -18,7 +18,7 @@ public class StageExecution {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private Long nextStepId;
+    private Long nextStageId;
 
     private int duration;
 
@@ -35,10 +35,6 @@ public class StageExecution {
     @ManyToOne
     @JoinColumn(name = "production_phase_id")
     private ProductionPhase productionPhase;
-
-    @ManyToOne
-    @JoinColumn(name = "production_executor_id")
-    private PhaseExecutor phaseExecutor;
 
     @PrePersist
     public void prePersist(){

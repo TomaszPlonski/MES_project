@@ -11,11 +11,10 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class OrderShowAllService implements OrderService{
+public class OrderShowAllService {
 
     private final OrderRepository orderRepository;
 
-    @Override
     @Transactional
     public List<OrderShowAll> orderShowAll() {
         List<Order> orders = orderRepository.findAll();

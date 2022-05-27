@@ -21,14 +21,6 @@ public class Order {
 
     private double orderValue;
 
-    @ManyToOne
-    @JoinColumn(name = "purchaser_id")
-    private Purchaser purchaser;
-
-    @ManyToOne
-    @JoinColumn(name = "supervisor_id")
-    private Supervisor supervisor;
-
     @OneToMany(mappedBy = "order")
     private Set<Product> products = new HashSet<>();
 

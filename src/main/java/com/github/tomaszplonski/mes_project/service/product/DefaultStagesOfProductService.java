@@ -2,10 +2,8 @@ package com.github.tomaszplonski.mes_project.service.product;
 
 import com.github.tomaszplonski.mes_project.model.Product;
 import com.github.tomaszplonski.mes_project.model.StageExecution;
-import com.github.tomaszplonski.mes_project.service.product.production.LonelyStage;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public interface DefaultStagesOfProductService {
 

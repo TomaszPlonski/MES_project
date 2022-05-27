@@ -1,7 +1,6 @@
 package com.github.tomaszplonski.mes_project.controller;
 
 
-import com.github.tomaszplonski.mes_project.model.PhaseExecutor;
 import com.github.tomaszplonski.mes_project.model.Product;
 import com.github.tomaszplonski.mes_project.model.ProductionPhase;
 import com.github.tomaszplonski.mes_project.model.StageExecution;
@@ -22,7 +21,6 @@ import java.time.LocalDate;
 public class TestController {
 
     private final ProductRepository productRepository;
-    private final PhaseExecutorRepository phaseExecutorRepository;
     private final ProductionPhaseRepository productionPhaseRepository;
     private final StagesService stagesService;
     private final StagesOfProduct stagesOfProduct;
@@ -32,7 +30,6 @@ public class TestController {
     @GetMapping("/test")
     public void test(){
         Product chair = productRepository.getById(1L);
-        PhaseExecutor phaseExecutor = phaseExecutorRepository.getById(1L);
         ProductionPhase productionPhase = productionPhaseRepository.getById(2L);
 
         StageExecution stage1 = new StageExecution();
