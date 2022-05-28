@@ -1,7 +1,8 @@
-package com.github.tomaszplonski.mes_project.service;
+package com.github.tomaszplonski.mes_project.service.order;
 
 import com.github.tomaszplonski.mes_project.model.Order;
 import com.github.tomaszplonski.mes_project.repository.OrderRepository;
+import com.github.tomaszplonski.mes_project.service.order.OrderShowAll;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

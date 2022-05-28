@@ -1,4 +1,4 @@
-package com.github.tomaszplonski.mes_project.service.product.production;
+package com.github.tomaszplonski.mes_project.service.order.product.production;
 
 import com.github.tomaszplonski.mes_project.model.Product;
 import com.github.tomaszplonski.mes_project.model.ProductionPhase;
@@ -14,7 +14,6 @@ public interface DefaultStagesService {
     *
     * @param product
     * @param productionPhase
-    * @param phaseExecutor
     * @param duration productPhase got field defaultDuration use it as 'duration' if this is the standard case
     *
     * @return created Stage
