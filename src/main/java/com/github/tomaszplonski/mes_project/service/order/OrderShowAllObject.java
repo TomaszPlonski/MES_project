@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 
 @Data @Builder
 @NoArgsConstructor @AllArgsConstructor
-public class OrderShowAll {
+public class OrderShowAllObject {
 
+    private Long id;
     private String name;
     private double orderValue;
-    private int status;
+
 }
