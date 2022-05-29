@@ -18,9 +18,13 @@ public class StageExecution {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private Long nextStageId;
+    @OneToOne
+    @JoinColumn(name="next_stage_id")
+    private StageExecution nextStage;
 
     private int duration;
+
+    private int sequencePosition;
 
     private LocalDate startOfStage;
 

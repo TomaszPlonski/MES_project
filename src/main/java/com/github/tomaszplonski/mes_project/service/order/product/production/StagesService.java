@@ -101,7 +101,7 @@ public class StagesService implements DefaultStagesService {
     @Transactional
     public StageExecution stageQueuing(StageExecution previousStage, StageExecution nextStage){
         nextStage.setStartOfStage(previousStage.getEstimatedEndOfStage());
-        previousStage.setNextStageId(stageExecutionRepository.save(nextStage).getId());
+        previousStage.setNextStage(stageExecutionRepository.save(nextStage));
         stageExecutionRepository.save(previousStage);
         return nextStage;
     }

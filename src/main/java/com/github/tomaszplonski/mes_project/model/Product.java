@@ -20,11 +20,13 @@ public class Product {
 
     private String type;
 
+    @OrderBy("sequencePosition")
     @OneToMany(mappedBy = "product")
     private List<StageExecution> stageExecution = new ArrayList<>();
 
-    @Nullable
-    private Long activeStageId;
+    @OneToOne
+    @JoinColumn(name="active_stage_id")
+    private StageExecution activeStage;
 
     @ManyToOne
     @JoinColumn(name = "order_id")

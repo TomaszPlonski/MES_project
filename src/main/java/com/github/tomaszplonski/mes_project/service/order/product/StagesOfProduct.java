@@ -24,7 +24,7 @@ public class StagesOfProduct {
     @Transactional
     public void productInitialization(Product product, StageExecution[] stages, LocalDate startOfProduction) {
         stages[0].setStartOfStage(startOfProduction);
-        product.setActiveStageId(stageExecutionRepository.save(stages[0]).getId());
+        product.setActiveStage(stageExecutionRepository.save(stages[0]));
         productRepository.save(product);
         for (int i = 0; i < stages.length-1; i++) {
             stagesService.stageQueuing(stages[i],stages[i+1]);
