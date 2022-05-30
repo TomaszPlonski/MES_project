@@ -12,12 +12,11 @@ import java.time.temporal.ChronoUnit;
 
 @Service
 @RequiredArgsConstructor
-public class StagesService implements DefaultStagesService {
+public class StagesService {
 
     private final StageExecutionRepository stageExecutionRepository;
 
 
-    @Override
     @Transactional
     public StageExecution StageInitialization(Product product, ProductionPhase productionPhase, int duration, LocalDate startOfStage) {
         return stageExecutionRepository.save(StageExecution.builder()
@@ -27,7 +26,6 @@ public class StagesService implements DefaultStagesService {
                 .build());
     }
 
-    @Override
     @Transactional
     public StageExecution endOfStage(StageExecution endedStage) {
         final StageExecution[] updatedStage = {null};
@@ -39,7 +37,6 @@ public class StagesService implements DefaultStagesService {
         return updatedStage[0];
     }
 
-    @Override
     @Transactional
     public StageExecution changeEstimatedEndOfStage(StageExecution stage, LocalDate newEstimatedEndOfStage) {
         final StageExecution[] updatedStage = {null};
@@ -52,7 +49,6 @@ public class StagesService implements DefaultStagesService {
     }
 
 
-    @Override
     @Transactional
     public Integer howManyDaysLeftToEstimatedEndOfStage(StageExecution stage) {
         final Integer[] shift = {null};
@@ -64,7 +60,6 @@ public class StagesService implements DefaultStagesService {
         return shift[0];
     }
 
-    @Override
     @Transactional
     public StageExecution changeEstimatedEndOfStage(StageExecution stage, Integer daysToShift) {
         final StageExecution[] updatedStage = {null};
@@ -78,7 +73,6 @@ public class StagesService implements DefaultStagesService {
         return updatedStage[0];
     }
 
-    @Override
     @Transactional
     public StageExecution changeNoActiveEstimatedEndOfStage(StageExecution stage, StageExecution previousStage) {
         final StageExecution[] updatedStage = {null};
@@ -86,10 +80,10 @@ public class StagesService implements DefaultStagesService {
         stageExecutionRepository.findById(stage.getId()).ifPresent(s->
                 stageExecutionRepository.findById(previousStage.getId()).ifPresent(ps->{
                     if(ps.getActualEndOfStage()==null){
-                        s.setStartOfStage(ps.getEstimatedEndOfStage());
+                        s.setEstimatedStartOfStage(ps.getEstimatedEndOfStage());
                     }
                     else {
-                        s.setStartOfStage(ps.getActualEndOfStage());
+                        s.setEstimatedEndOfStage(ps.getActualEndOfStage());
                     }
                     s.prePersist();
                     updatedStage[0] = stageExecutionRepository.save(s);
@@ -97,10 +91,9 @@ public class StagesService implements DefaultStagesService {
         return updatedStage[0];
     }
 
-    @Override
     @Transactional
     public StageExecution stageQueuing(StageExecution previousStage, StageExecution nextStage){
-        nextStage.setStartOfStage(previousStage.getEstimatedEndOfStage());
+        nextStage.setEstimatedStartOfStage(previousStage.getEstimatedEndOfStage());
         previousStage.setNextStage(stageExecutionRepository.save(nextStage));
         stageExecutionRepository.save(previousStage);
         return nextStage;

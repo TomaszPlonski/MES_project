@@ -26,7 +26,9 @@ public class StageExecution {
 
     private int sequencePosition;
 
-    private LocalDate startOfStage;
+    private LocalDate estimatedStartOfStage;
+
+    private LocalDate actualStartOfStage;
 
     private LocalDate estimatedEndOfStage;
 
@@ -42,7 +44,7 @@ public class StageExecution {
 
     @PrePersist
     public void prePersist(){
-        estimatedEndOfStage = startOfStage.plusDays(duration);
+        estimatedEndOfStage = estimatedStartOfStage.plusDays(duration);
     }
 
 }

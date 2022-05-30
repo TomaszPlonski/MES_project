@@ -33,6 +33,7 @@ public class TestController {
 
     @GetMapping("/test")
     public void test(){
+        log.info(stageExecutionRepository.findProductionPhaseNameById(1L).get());
 //        Product product = productRepository.getById(1L);
 //        List<StageExecution> stageExecutions = stageExecutionRepository.findByProduct(product);
 //        log.info(stageExecutions.get(0).getEstimatedEndOfStage().toString());

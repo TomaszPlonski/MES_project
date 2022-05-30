@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -23,7 +24,7 @@ public class StagesOfProduct {
 
     @Transactional
     public void productInitialization(Product product, StageExecution[] stages, LocalDate startOfProduction) {
-        stages[0].setStartOfStage(startOfProduction);
+        stages[0].setEstimatedStartOfStage(startOfProduction);
         product.setActiveStage(stageExecutionRepository.save(stages[0]));
         productRepository.save(product);
         for (int i = 0; i < stages.length-1; i++) {
@@ -32,29 +33,14 @@ public class StagesOfProduct {
         //jeśli problem będzie na jsp dać każdemu stagowi parametr produkt to można to zrobić tutaj
     }
 
-    public List<StageExecution> getAllStageExecutions(Product product){
-
-        return null;
-    }
-
-
     @Transactional
-    public Product endOfActualStage(Product product) {
-        return null;
+    public Integer getDelayOfProduction(Product product){
+        if(product.getActiveStage().getEstimatedEndOfStage().isBefore(LocalDate.now())){
+            return Math.toIntExact(ChronoUnit.DAYS.between(product.getActiveStage().getEstimatedEndOfStage(),LocalDate.now()));
+        } else {
+            return Math.toIntExact(ChronoUnit.DAYS.between(product.getActiveStage().getEstimatedStartOfStage(), product.getActiveStage().getActualStartOfStage()));
+        }
     }
 
-    @Transactional
-    public Product changeEstimatedEndOfActualStage(Product product, LocalDate newEstimatedEndOfStage) {
-        return null;
-    }
 
-    @Transactional
-    public Integer estimatedHowManyDaysLeftToEndOfProduction(Product product) {
-        return null;
-    }
-
-    @Transactional
-    public Product changeEstimatedEndOfActualStage(Product product, Integer daysToShift) {
-        return null;
-    }
 }

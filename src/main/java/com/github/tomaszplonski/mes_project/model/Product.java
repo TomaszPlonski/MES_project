@@ -1,9 +1,9 @@
 package com.github.tomaszplonski.mes_project.model;
 
 import lombok.*;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +23,10 @@ public class Product {
     @OrderBy("sequencePosition")
     @OneToMany(mappedBy = "product")
     private List<StageExecution> stageExecution = new ArrayList<>();
+
+    private LocalDate initialEndOfProduction;
+
+    private Boolean productionFinished;
 
     @OneToOne
     @JoinColumn(name="active_stage_id")
