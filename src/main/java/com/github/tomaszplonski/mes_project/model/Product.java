@@ -24,7 +24,7 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<StageExecution> stageExecution = new ArrayList<>();
 
-    private LocalDate initialEndOfProduction;
+    private LocalDate plannedEndOfProduction;
 
     private Boolean productionFinished;
 

@@ -1,4 +1,4 @@
-package com.github.tomaszplonski.mes_project.service.order;
+package com.github.tomaszplonski.mes_project.service.displayService;
 
 
 import com.github.tomaszplonski.mes_project.model.Product;
@@ -13,18 +13,18 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderDetailsObject {
+public class ProductDetailsObject {
 
     private String productType;
     private short status;
-    private LocalDate initialEndOfProduction;
+    private LocalDate plannedEndOfProduction;
     private LocalDate predictedEndOfProduction;
     private Integer delay;
     private String actualStageName;
 
-    public static class OrderDetailsObjectBuilder {
+    public static class ProductDetailsObjectBuilder {
 
-        public OrderDetailsObjectBuilder status(Product product){
+        public ProductDetailsObjectBuilder status(Product product){
             if (product.getStageExecution().size() == 0) {
                 this.status = 0;
             } else if (delay>0) {
@@ -37,9 +37,9 @@ public class OrderDetailsObject {
             return this;
         }
 
-        public OrderDetailsObjectBuilder predictedEndOfProduction(){
+        public ProductDetailsObjectBuilder predictedEndOfProduction(){
 
-            this.predictedEndOfProduction = initialEndOfProduction.plusDays(delay);
+            this.predictedEndOfProduction = plannedEndOfProduction.plusDays(delay);
             return this;
         }
 

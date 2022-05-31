@@ -67,55 +67,82 @@
                 <!-- ============================================================== -->
                 <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
                     <div class="card">
-                        <h3 class="card-header">Id: ${order.id}  ${order.name}</h3>
-                        <h5 class="card-header">Value: ${order.orderValue}zł</h5>
+                        <h3 class="card-header">${product.productType}</h3>
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class="bg-light">
                                     <tr class="border-0">
-                                        <th class="border-0">Product Type</th>
-                                        <th class="border-0">Actual Stage</th>
-                                        <th class="border-0">Status</th>
-                                        <th class="border-0">Predicted End</th>
-                                        <th class="border-0">Planned End</th>
+                                        <th class="border-0">Stage</th>
+                                        <th class="border-0">Duration</th>
+                                        <th class="border-0">Start</th>
+                                        <th class="border-0">Finish</th>
+                                        <th class="border-0">Delay</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach items="${orderDetails}" var="details">
+                                    <c:forEach items="${stages}" var="stage">
                                         <tr>
-                                            <td>${details.productType}</td>
-                                            <td>${details.actualStageName}</td>
+                                            <td>${stage.productionPhaseName}</td>
+                                            <td>${stage.duration}</td>
                                             <td>
                                                 <c:choose>
-                                                    <c:when test="${details.status==-1}">
-                                                        <span class="badge-dot badge-danger mr-1"></span>Delay
-                                                        <c:choose>
-                                                            <c:when test="${details.delay==1}">
-                                                                1 day
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                ${details.delay} days
-                                                            </c:otherwise>
-                                                        </c:choose>
+                                                <c:when test="${stage.actualStartOfStage != null}">
+                                                    ${stage.actualStartOfStage}
+                                                </c:when>
+                                                </c:choose>
+                                            </td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${stage.actualEndOfStage != null}">
+                                                        ${stage.actualEndOfStage}
                                                     </c:when>
-                                                    <c:when test="${details.status==0}">
-                                                        <span class="badge-dot badge-primary mr-1"></span>Not started
-                                                    </c:when>
-                                                    <c:when test="${details.status==1}">
-                                                        <span class="badge-dot badge-brand mr-1"></span>In production
-                                                    </c:when>
-                                                    <c:when test="${details.status==2}">
-                                                        <span class="badge-dot badge-success mr-1"></span>Finished
+                                                    <c:when test="${stage.actualStartOfStage != null}">
+                                                        In progress...
                                                     </c:when>
                                                 </c:choose>
                                             </td>
-                                            <td>${details.predictedEndOfProduction}</td>
-                                            <td>${details.plannedEndOfProduction}</td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${stage.delay==null}"></c:when>
+                                                    <c:when test="${stage.delay>0}">
+                                                        <span class="badge-dot badge-danger mr-1"></span>Delay
+                                                        <c:choose>
+                                                            <c:when test="${stage.delay==1}">
+                                                                1 day
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                ${stage.delay} days
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:when>
+                                                    <c:when test="${stage.delay==0}">
+                                                        <span class="badge-dot badge-success mr-1"></span>According to plan
+                                                    </c:when>
+                                                    <c:when test="${stage.delay<1}">
+                                                        <span class="badge-dot badge-primary mr-1"></span>Time reduction ${stage.delay} days
+                                                    </c:when>
+                                                </c:choose>
+                                            </td>
                                         </tr>
                                     </c:forEach>
+                                    </tbody>
+                                </table>
+                                <table class="table">
+                                    <thead class="bg-light">
+                                    <tbody>
                                     <tr>
-                                        <td colspan="9"><a href="#" class="btn btn-outline-light float-right">View Details</a></td>
+                                        <c:choose>
+                                            <c:when test="${product.delay == 0}">
+                                                <td class="alert-success">Production is going according to plan. Planned completion date: ${product.plannedEndOfProduction}</td>
+                                            </c:when>
+                                            <c:when test="${product.delay < 0}">
+                                                <td class="alert-success">Production goes faster than expected. Planned completion date: ${product.predictedEndOfProduction}. ${product.delay} days ahead of schedule</td>
+                                            </c:when>
+                                            <c:when test="${product.delay > 0}">
+                                                <td class="alert-danger">The production date is at stake. The delay is ${product.delay}. Planned completion date: ${product.predictedEndOfProduction}</td>
+                                            </c:when>
+                                        </c:choose>
                                     </tr>
                                     </tbody>
                                 </table>

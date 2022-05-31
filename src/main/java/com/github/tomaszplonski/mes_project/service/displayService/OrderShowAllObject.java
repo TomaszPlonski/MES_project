@@ -1,4 +1,4 @@
-package com.github.tomaszplonski.mes_project.service.order;
+package com.github.tomaszplonski.mes_project.service.displayService;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

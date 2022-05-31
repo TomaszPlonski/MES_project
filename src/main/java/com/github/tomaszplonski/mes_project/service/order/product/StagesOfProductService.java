@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class StagesOfProduct {
+public class StagesOfProductService {
 
     private final ProductRepository productRepository;
     private final StagesService stagesService;

@@ -1,20 +1,13 @@
 package com.github.tomaszplonski.mes_project.controller;
 
 
-import com.github.tomaszplonski.mes_project.model.Order;
-import com.github.tomaszplonski.mes_project.model.Product;
-import com.github.tomaszplonski.mes_project.model.ProductionPhase;
-import com.github.tomaszplonski.mes_project.model.StageExecution;
 import com.github.tomaszplonski.mes_project.repository.*;
-import com.github.tomaszplonski.mes_project.service.order.product.StagesOfProduct;
+import com.github.tomaszplonski.mes_project.service.order.product.StagesOfProductService;
 import com.github.tomaszplonski.mes_project.service.order.product.production.StagesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.time.LocalDate;
-import java.util.List;
 
 
 @Slf4j
@@ -25,7 +18,7 @@ public class TestController {
     private final ProductRepository productRepository;
     private final ProductionPhaseRepository productionPhaseRepository;
     private final StagesService stagesService;
-    private final StagesOfProduct stagesOfProduct;
+    private final StagesOfProductService stagesOfProductService;
     private final StageExecutionRepository stageExecutionRepository;
     private final OrderRepository orderRepository;
 

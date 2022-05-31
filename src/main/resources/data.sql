@@ -1,5 +1,5 @@
-insert into products(type, production_finished,initial_end_of_production) values ('chair',0,DATE_ADD(CURRENT_DATE(),INTERVAL 6 DAY));
-insert into products(type, production_finished,initial_end_of_production) values ('table',0,DATE_ADD(CURRENT_DATE(),INTERVAL 4 DAY));
+insert into products(type, production_finished,planned_end_of_production) values ('chair',0,DATE_ADD(CURRENT_DATE(),INTERVAL 6 DAY));
+insert into products(type, production_finished,planned_end_of_production) values ('table',0,DATE_ADD(CURRENT_DATE(),INTERVAL 4 DAY));
 
 insert into production_phases(name, default_duration) values ('Cutting out: table legs',1);
 insert into production_phases(name, default_duration) values ('Cutting out: chair legs',1);
