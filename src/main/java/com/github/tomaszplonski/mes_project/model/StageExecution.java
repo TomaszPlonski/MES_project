@@ -5,10 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Getter
-@Setter
-@Entity
-@Builder
+@Getter @Setter
+@Entity @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name ="stage_execution")

@@ -6,12 +6,12 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "products")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Product {
 
     @Id
@@ -35,5 +35,17 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "product_attribute_mapping",
+            joinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "attribute_value_id", referencedColumnName = "id")})
+    @MapKeyJoinColumn(name = "type_attribute_id")
+    private Map<TypeAttribute, AttributeValue> typeAttributeMap;
+
+
+    @ManyToOne
+    @JoinColumn(name="product_type_id")
+    private ProductType productType;
 
 }
