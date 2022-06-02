@@ -1,9 +1,9 @@
 package com.github.tomaszplonski.mes_project.controller;
 
 import com.github.tomaszplonski.mes_project.model.Order;
-import com.github.tomaszplonski.mes_project.service.displayService.ProductDetailsObject;
+import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.ProductsOfOrderPOJO;
 import com.github.tomaszplonski.mes_project.service.displayService.DisplayService;
-import com.github.tomaszplonski.mes_project.service.displayService.OrderShowAllObject;
+import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.OrderShowAllPOJO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ public class OrderController {
 
     @GetMapping("/all")
     public String showAllOrders(Model model){
-        List<OrderShowAllObject> orderShowAll = displayService.orderShowAll();
+        List<OrderShowAllPOJO> orderShowAll = displayService.orderShowAll();
         model.addAttribute("orders",orderShowAll);
         return "order-show-all";
     }
@@ -32,7 +32,7 @@ public class OrderController {
     @GetMapping("/get/{id}")
     public String showOrderDetails(@PathVariable long id, Model model){
         Order order = displayService.getOrderById(id);
-        List<ProductDetailsObject> orderDetails = displayService.orderDetails(id);
+        List<ProductsOfOrderPOJO> orderDetails = displayService.orderDetails(id);
 
         model.addAttribute("order",order);
         model.addAttribute("orderDetails",orderDetails);

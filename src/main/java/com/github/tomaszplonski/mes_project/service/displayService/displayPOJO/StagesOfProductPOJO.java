@@ -1,4 +1,4 @@
-package com.github.tomaszplonski.mes_project.service.displayService;
+package com.github.tomaszplonski.mes_project.service.displayService.displayPOJO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import java.time.temporal.ChronoUnit;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StagesOfProductObject {
+public class StagesOfProductPOJO {
 
     private int duration;
 
@@ -24,9 +24,9 @@ public class StagesOfProductObject {
 
     private Integer delay;
 
-    public static class StagesOfProductObjectBuilder{
+    public static class StagesOfProductPOJOBuilder{
 
-        public StagesOfProductObjectBuilder delay(){
+        public StagesOfProductPOJOBuilder delay(){
             if(actualEndOfStage==null || actualStartOfStage==null){
                 this.delay = null;
             } else {

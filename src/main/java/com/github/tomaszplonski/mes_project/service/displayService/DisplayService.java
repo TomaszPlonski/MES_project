@@ -6,6 +6,10 @@ import com.github.tomaszplonski.mes_project.model.StageExecution;
 import com.github.tomaszplonski.mes_project.repository.OrderRepository;
 import com.github.tomaszplonski.mes_project.repository.ProductRepository;
 import com.github.tomaszplonski.mes_project.repository.StageExecutionRepository;
+import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.OrderShowAllPOJO;
+import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.ProductDetailsPOJO;
+import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.ProductsOfOrderPOJO;
+import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.StagesOfProductPOJO;
 import com.github.tomaszplonski.mes_project.service.order.product.StagesOfProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,11 +30,11 @@ public class DisplayService {
     private final StagesOfProductService stagesOfProductService;
 
     @Transactional
-    public List<OrderShowAllObject> orderShowAll() {
+    public List<OrderShowAllPOJO> orderShowAll() {
         List<Order> orders = orderRepository.findAll();
-        List<OrderShowAllObject> ordersShowAll = new ArrayList<>();
+        List<OrderShowAllPOJO> ordersShowAll = new ArrayList<>();
 
-        orders.forEach(o->ordersShowAll.add(OrderShowAllObject.builder()
+        orders.forEach(o->ordersShowAll.add(OrderShowAllPOJO.builder()
                         .id(o.getId())
                         .name(o.getName())
                         .orderValue(o.getOrderValue())
@@ -40,14 +44,15 @@ public class DisplayService {
     }
 
     @Transactional
-    public List<ProductDetailsObject> orderDetails(Long orderId){
+    public List<ProductsOfOrderPOJO> orderDetails(Long orderId){
         Order order = getOrderById(orderId);
-        List<ProductDetailsObject> orderDetails = new ArrayList<>();
+        List<ProductsOfOrderPOJO> orderDetails = new ArrayList<>();
         List<Product> products = productRepository.findByOrder(order);
 
 
-        products.forEach(p->orderDetails.add(ProductDetailsObject.builder()
-                        .productType(p.getType())
+        products.forEach(p->orderDetails.add(ProductsOfOrderPOJO.builder()
+                        .id(p.getId())
+                        .productType(p.getProductType())
                         .delay(stagesOfProductService.getDelayOfProduction(p))
                         .plannedEndOfProduction(p.getPlannedEndOfProduction())
                         .predictedEndOfProduction()
@@ -58,11 +63,11 @@ public class DisplayService {
     }
 
     @Transactional
-    public ProductDetailsObject productDetailsGeneral(Long productId){
+    public ProductsOfOrderPOJO productDetailsGeneral(Long productId){
         Product product = getProductById(productId);
 
-        return ProductDetailsObject.builder()
-                .productType(product.getType())
+        return ProductsOfOrderPOJO.builder()
+                .productType(product.getProductType())
                 .delay(stagesOfProductService.getDelayOfProduction(product))
                 .plannedEndOfProduction(product.getPlannedEndOfProduction())
                 .predictedEndOfProduction()
@@ -74,12 +79,12 @@ public class DisplayService {
 
 
     @Transactional
-    public List<StagesOfProductObject> productDetailsStages(Long productId){
+    public List<StagesOfProductPOJO> stagesOfProduct(Long productId){
         Product product = getProductById(productId);
-        List<StagesOfProductObject> productDetails = new ArrayList<>();
+        List<StagesOfProductPOJO> productDetails = new ArrayList<>();
         List<StageExecution> stages = stageExecutionRepository.findByProduct(product);
 
-        stages.forEach(s->productDetails.add(StagesOfProductObject.builder()
+        stages.forEach(s->productDetails.add(StagesOfProductPOJO.builder()
                         .productionPhaseName(s.getProductionPhase().getName())
                         .duration(s.getDuration())
                         .actualStartOfStage(s.getActualStartOfStage())
@@ -88,6 +93,16 @@ public class DisplayService {
                         .build()));
 
         return productDetails;
+    }
+
+    @Transactional
+    public ProductDetailsPOJO productDetails (Long productId){
+        Product product = getProductById(productId);
+        return ProductDetailsPOJO.builder()
+                .productId(productId)
+                .productType(product.getProductType().getProductType())
+                .typeAttributeMap(product.getTypeAttributeMap())
+                .build();
     }
 
 

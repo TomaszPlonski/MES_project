@@ -1,7 +1,8 @@
-package com.github.tomaszplonski.mes_project.service.displayService;
+package com.github.tomaszplonski.mes_project.service.displayService.displayPOJO;
 
 
 import com.github.tomaszplonski.mes_project.model.Product;
+import com.github.tomaszplonski.mes_project.model.ProductType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,18 +14,19 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductDetailsObject {
+public class ProductsOfOrderPOJO {
 
-    private String productType;
+    private Long id;
+    private ProductType productType;
     private short status;
     private LocalDate plannedEndOfProduction;
     private LocalDate predictedEndOfProduction;
     private Integer delay;
     private String actualStageName;
 
-    public static class ProductDetailsObjectBuilder {
+    public static class ProductsOfOrderPOJOBuilder {
 
-        public ProductDetailsObjectBuilder status(Product product){
+        public ProductsOfOrderPOJOBuilder status(Product product){
             if (product.getStageExecution().size() == 0) {
                 this.status = 0;
             } else if (delay>0) {
@@ -37,7 +39,7 @@ public class ProductDetailsObject {
             return this;
         }
 
-        public ProductDetailsObjectBuilder predictedEndOfProduction(){
+        public ProductsOfOrderPOJOBuilder predictedEndOfProduction(){
 
             this.predictedEndOfProduction = plannedEndOfProduction.plusDays(delay);
             return this;
