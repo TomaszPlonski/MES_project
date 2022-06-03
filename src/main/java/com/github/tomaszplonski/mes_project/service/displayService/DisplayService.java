@@ -90,7 +90,7 @@ public class DisplayService {
                                 .actualEndOfStage(e.getValue().getActualEndOfStage())
                                 .duration(e.getValue().getDuration())
                                 .delay()
-                                .sequencePosition(e.getValue().getSequencePosition())
+                                .sequencePosition(e.getKey().getSequencePosition())
                                 .build())
                         .sorted(Comparator.comparingInt(StagesDetailsPOJO::getSequencePosition))
                         .collect(Collectors.toList()))

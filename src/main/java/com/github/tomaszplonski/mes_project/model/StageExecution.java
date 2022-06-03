@@ -22,8 +22,6 @@ public class StageExecution {
 
     private int duration;
 
-    private int sequencePosition;
-
     private LocalDate estimatedStartOfStage;
 
     private LocalDate actualStartOfStage;

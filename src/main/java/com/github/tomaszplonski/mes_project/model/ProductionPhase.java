@@ -24,6 +24,8 @@ public class ProductionPhase {
 
     private int defaultDuration;
 
+    private int sequencePosition;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "type_id")
     private ProductType productType;
