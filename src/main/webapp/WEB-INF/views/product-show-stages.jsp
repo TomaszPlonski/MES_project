@@ -67,8 +67,8 @@
                 <!-- ============================================================== -->
                 <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
                     <div class="card">
-                        <h3 class="card-header">Product number: ${product.id}</h3>
-                        <h3 class="card-header">Product type: ${product.productType.productType}</h3>
+                        <h3 class="card-header">Product number: ${stages.id}</h3>
+                        <h3 class="card-header">Product type: ${stages.productType}</h3>
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table">
@@ -82,9 +82,9 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach items="${stages}" var="stage">
+                                    <c:forEach items="${stages.stagesDetailsPOJOS}" var="stage">
                                         <tr>
-                                            <td>${stage.productionPhaseName}</td>
+                                            <td>${stage.phaseName}</td>
                                             <td>${stage.duration}</td>
                                             <td>
                                                 <c:choose>

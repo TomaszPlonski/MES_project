@@ -1,17 +1,16 @@
-package com.github.tomaszplonski.mes_project.service.order.product;
+package com.github.tomaszplonski.mes_project.service.entitiService.product;
 
 import com.github.tomaszplonski.mes_project.model.Product;
 import com.github.tomaszplonski.mes_project.model.StageExecution;
 import com.github.tomaszplonski.mes_project.repository.ProductRepository;
 import com.github.tomaszplonski.mes_project.repository.StageExecutionRepository;
-import com.github.tomaszplonski.mes_project.service.order.product.production.StagesService;
+import com.github.tomaszplonski.mes_project.service.entitiService.product.production.StagesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

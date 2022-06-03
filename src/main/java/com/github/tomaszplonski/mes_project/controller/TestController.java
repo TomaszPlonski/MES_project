@@ -2,8 +2,8 @@ package com.github.tomaszplonski.mes_project.controller;
 
 
 import com.github.tomaszplonski.mes_project.repository.*;
-import com.github.tomaszplonski.mes_project.service.order.product.StagesOfProductService;
-import com.github.tomaszplonski.mes_project.service.order.product.production.StagesService;
+import com.github.tomaszplonski.mes_project.service.entitiService.product.StagesOfProductService;
+import com.github.tomaszplonski.mes_project.service.entitiService.product.production.StagesService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,15 +26,6 @@ public class TestController {
 
     @GetMapping("/test")
     public void test(){
-        log.info(stageExecutionRepository.findProductionPhaseNameById(1L).get());
-//        Product product = productRepository.getById(1L);
-//        List<StageExecution> stageExecutions = stageExecutionRepository.findByProduct(product);
-//        log.info(stageExecutions.get(0).getEstimatedEndOfStage().toString());
-
-
-
-
-
 
 
     }

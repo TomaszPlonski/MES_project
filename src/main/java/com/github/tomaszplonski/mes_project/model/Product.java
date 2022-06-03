@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,11 +19,12 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String type;
-
-    @OrderBy("sequencePosition")
-    @OneToMany(mappedBy = "product")
-    private List<StageExecution> stageExecution = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "production_mapping",
+            joinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "stage_execution_id", referencedColumnName = "id")})
+    @MapKeyJoinColumn(name = "production_phase_id")
+    private Map<ProductionPhase, StageExecution> productionMap = new LinkedHashMap<>();
 
     private LocalDate plannedEndOfProduction;
 
@@ -41,7 +43,7 @@ public class Product {
             joinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "attribute_value_id", referencedColumnName = "id")})
     @MapKeyJoinColumn(name = "type_attribute_id")
-    private Map<TypeAttribute, AttributeValue> typeAttributeMap;
+    private Map<TypeAttribute, AttributeValue> typeAttributeMap = new LinkedHashMap<>();
 
 
     @ManyToOne

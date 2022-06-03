@@ -1,7 +1,5 @@
-package com.github.tomaszplonski.mes_project.service.order.product.production;
+package com.github.tomaszplonski.mes_project.service.entitiService.product.production;
 
-import com.github.tomaszplonski.mes_project.model.Product;
-import com.github.tomaszplonski.mes_project.model.ProductionPhase;
 import com.github.tomaszplonski.mes_project.model.StageExecution;
 import com.github.tomaszplonski.mes_project.repository.StageExecutionRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,14 +15,14 @@ public class StagesService {
     private final StageExecutionRepository stageExecutionRepository;
 
 
-    @Transactional
-    public StageExecution StageInitialization(Product product, ProductionPhase productionPhase, int duration, LocalDate startOfStage) {
-        return stageExecutionRepository.save(StageExecution.builder()
-                .product(product)
-                .productionPhase(productionPhase)
-                .duration(duration)
-                .build());
-    }
+//    @Transactional
+//    public StageExecution StageInitialization(Product product, ProductionPhase productionPhase, int duration, LocalDate startOfStage) {
+//        return stageExecutionRepository.save(StageExecution.builder()
+//                .product(product)
+//                .productionPhase(productionPhase)
+//                .duration(duration)
+//                .build());
+//    }
 
     @Transactional
     public StageExecution endOfStage(StageExecution endedStage) {

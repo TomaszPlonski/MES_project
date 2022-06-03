@@ -25,4 +25,7 @@ public class ProductType {
 
     @OneToMany(mappedBy = "productType")
     List<TypeAttribute> typeAttributes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "productType")
+    List<ProductionPhase> ProductionPhase = new ArrayList<>();
 }

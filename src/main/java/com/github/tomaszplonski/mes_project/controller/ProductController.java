@@ -24,10 +24,8 @@ public class ProductController {
 
     @GetMapping("/stages/{id}")
     public String showStagesOfProduct(@PathVariable long id, Model model){
-        ProductsOfOrderPOJO product = displayService.productDetailsGeneral(id);
-        List<StagesOfProductPOJO> stages = displayService.stagesOfProduct(id);
+        StagesOfProductPOJO stages = displayService.stagesOfProduct(id);
 
-        model.addAttribute("product",product);
         model.addAttribute("stages",stages);
 
         return "product-show-stages";

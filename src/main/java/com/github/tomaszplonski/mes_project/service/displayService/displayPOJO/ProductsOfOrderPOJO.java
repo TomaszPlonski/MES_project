@@ -27,7 +27,7 @@ public class ProductsOfOrderPOJO {
     public static class ProductsOfOrderPOJOBuilder {
 
         public ProductsOfOrderPOJOBuilder status(Product product){
-            if (product.getStageExecution().size() == 0) {
+            if (product.getProductionMap().size() == 0) {
                 this.status = 0;
             } else if (delay>0) {
                 this.status = -1;

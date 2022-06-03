@@ -24,6 +24,7 @@ public class ProductionPhase {
 
     private int defaultDuration;
 
-    @OneToMany(mappedBy = "productionPhase")
-    private Set<StageExecution> stageExecution = new HashSet<>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "type_id")
+    private ProductType productType;
 }

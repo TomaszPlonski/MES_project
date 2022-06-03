@@ -1,4 +1,4 @@
-package com.github.tomaszplonski.mes_project.service.order.product.production;
+package com.github.tomaszplonski.mes_project.service.entitiService.product.production;
 
 import com.github.tomaszplonski.mes_project.model.Product;
 import com.github.tomaszplonski.mes_project.model.ProductionPhase;

@@ -6,18 +6,16 @@ import com.github.tomaszplonski.mes_project.model.StageExecution;
 import com.github.tomaszplonski.mes_project.repository.OrderRepository;
 import com.github.tomaszplonski.mes_project.repository.ProductRepository;
 import com.github.tomaszplonski.mes_project.repository.StageExecutionRepository;
-import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.OrderShowAllPOJO;
-import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.ProductDetailsPOJO;
-import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.ProductsOfOrderPOJO;
-import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.StagesOfProductPOJO;
-import com.github.tomaszplonski.mes_project.service.order.product.StagesOfProductService;
+import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.*;
+import com.github.tomaszplonski.mes_project.service.entitiService.product.StagesOfProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -56,7 +54,7 @@ public class DisplayService {
                         .delay(stagesOfProductService.getDelayOfProduction(p))
                         .plannedEndOfProduction(p.getPlannedEndOfProduction())
                         .predictedEndOfProduction()
-                        .actualStageName(p.getActiveStage().getProductionPhase().getName())
+                        .actualStageName(getActualPhase(p))
                         .status(p)
                         .build()));
         return orderDetails;
@@ -71,7 +69,7 @@ public class DisplayService {
                 .delay(stagesOfProductService.getDelayOfProduction(product))
                 .plannedEndOfProduction(product.getPlannedEndOfProduction())
                 .predictedEndOfProduction()
-                .actualStageName(product.getActiveStage().getProductionPhase().getName())
+                .actualStageName(getActualPhase(product))
                 .status(product)
                 .build();
 
@@ -79,20 +77,26 @@ public class DisplayService {
 
 
     @Transactional
-    public List<StagesOfProductPOJO> stagesOfProduct(Long productId){
+    public StagesOfProductPOJO stagesOfProduct(Long productId){
         Product product = getProductById(productId);
-        List<StagesOfProductPOJO> productDetails = new ArrayList<>();
-        List<StageExecution> stages = stageExecutionRepository.findByProduct(product);
 
-        stages.forEach(s->productDetails.add(StagesOfProductPOJO.builder()
-                        .productionPhaseName(s.getProductionPhase().getName())
-                        .duration(s.getDuration())
-                        .actualStartOfStage(s.getActualStartOfStage())
-                        .actualEndOfStage(s.getActualEndOfStage())
-                        .delay()
-                        .build()));
+       return StagesOfProductPOJO.builder()
+                .id(product.getId())
+                .productType(product.getProductType().getProductType())
+                .stagesDetailsPOJOS(product.getProductionMap().entrySet().stream()
+                        .map(e->StagesDetailsPOJO.builder()
+                                .phaseName(e.getKey().getName())
+                                .actualStartOfStage(e.getValue().getActualStartOfStage())
+                                .actualEndOfStage(e.getValue().getActualEndOfStage())
+                                .duration(e.getValue().getDuration())
+                                .delay()
+                                .sequencePosition(e.getValue().getSequencePosition())
+                                .build())
+                        .sorted(Comparator.comparingInt(StagesDetailsPOJO::getSequencePosition))
+                        .collect(Collectors.toList()))
+                .build();
 
-        return productDetails;
+
     }
 
     @Transactional
@@ -112,6 +116,22 @@ public class DisplayService {
 
     public Product getProductById(Long productId){
         return productRepository.findById(productId).orElse(new Product());
+    }
+
+    public String getActualPhase(Product product){
+        return product.getProductionMap().entrySet().stream()
+                .filter(e-> Objects.equals(e.getValue(),product.getActiveStage()))
+                .map(Map.Entry::getKey)
+                .findAny()
+                .get().getName();
+    }
+
+    public Integer getStageDelay(StageExecution stage){
+        if(stage.getActualEndOfStage()==null || stage.getActualStartOfStage()==null){
+            return null;
+        } else {
+            return  Math.toIntExact(ChronoUnit.DAYS.between(stage.getActualStartOfStage(), stage.getActualEndOfStage())) - stage.getDuration();
+        }
     }
 
 }

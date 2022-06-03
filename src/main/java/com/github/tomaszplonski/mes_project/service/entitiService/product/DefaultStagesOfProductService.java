@@ -1,4 +1,4 @@
-package com.github.tomaszplonski.mes_project.service.order.product;
+package com.github.tomaszplonski.mes_project.service.entitiService.product;
 
 import com.github.tomaszplonski.mes_project.model.Product;
 import com.github.tomaszplonski.mes_project.model.StageExecution;

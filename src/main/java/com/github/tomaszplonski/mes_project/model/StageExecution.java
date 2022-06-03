@@ -32,14 +32,6 @@ public class StageExecution {
 
     private LocalDate actualEndOfStage;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
-
-    @ManyToOne
-    @JoinColumn(name = "production_phase_id")
-    private ProductionPhase productionPhase;
-
     @PrePersist
     public void prePersist(){
         estimatedEndOfStage = estimatedStartOfStage.plusDays(duration);

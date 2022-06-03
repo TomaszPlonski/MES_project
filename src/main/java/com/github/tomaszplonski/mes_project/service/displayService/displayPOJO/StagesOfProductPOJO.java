@@ -1,5 +1,8 @@
 package com.github.tomaszplonski.mes_project.service.displayService.displayPOJO;
 
+import com.github.tomaszplonski.mes_project.model.ProductType;
+import com.github.tomaszplonski.mes_project.model.ProductionPhase;
+import com.github.tomaszplonski.mes_project.model.StageExecution;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,6 +10,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @Data
 @Builder
@@ -14,28 +20,12 @@ import java.time.temporal.ChronoUnit;
 @AllArgsConstructor
 public class StagesOfProductPOJO {
 
-    private int duration;
+    private long id;
 
-    private LocalDate actualStartOfStage;
+    private String productType;
 
-    private LocalDate actualEndOfStage;
+    private List<StagesDetailsPOJO> stagesDetailsPOJOS;
 
-    private String productionPhaseName;
-
-    private Integer delay;
-
-    public static class StagesOfProductPOJOBuilder{
-
-        public StagesOfProductPOJOBuilder delay(){
-            if(actualEndOfStage==null || actualStartOfStage==null){
-                this.delay = null;
-            } else {
-                this.delay = Math.toIntExact(ChronoUnit.DAYS.between(actualStartOfStage, actualEndOfStage)) - duration;
-            }
-            return this;
-        }
-
-    }
 
 
 }
