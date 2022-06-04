@@ -3,16 +3,20 @@ values (0,DATE_ADD(CURRENT_DATE(),INTERVAL 6 DAY));
 insert into products(production_finished,planned_end_of_production)
 values (0,DATE_ADD(CURRENT_DATE(),INTERVAL 4 DAY));
 
-insert into production_phases(name, default_duration,sequence_position) values ('Cutting out: table legs',1,1);
-insert into production_phases(name, default_duration,sequence_position) values ('Cutting out: chair legs',1,1);
-insert into production_phases(name, default_duration,sequence_position) values ('Cutting out: table top',1,2);
-insert into production_phases(name, default_duration,sequence_position) values ('Cutting out: chair seat',1,2);
-insert into production_phases(name, default_duration,sequence_position) values ('Wood planing', 2,3);
-insert into production_phases(name, default_duration,sequence_position) values ('Wood planing', 2,3);
-insert into production_phases(name, default_duration,sequence_position) values ('Wood painting', 3,4);
-insert into production_phases(name, default_duration,sequence_position) values ('Wood painting', 3,4);
-insert into production_phases(name, default_duration,sequence_position) values ('Assembling table', 1,5);
-insert into production_phases(name, default_duration,sequence_position) values ('Assembling chair', 1,5);
+insert into product_types(product_type) values ('chair');
+insert into product_types(product_type) values ('table');
+insert into product_types(product_type) values ('stool');
+
+insert into production_phases(name, default_duration,sequence_position,type_id) values ('Cutting out: table legs',1,1,2);
+insert into production_phases(name, default_duration,sequence_position,type_id) values ('Cutting out: chair legs',1,1,1);
+insert into production_phases(name, default_duration,sequence_position,type_id) values ('Cutting out: table top',1,2,2);
+insert into production_phases(name, default_duration,sequence_position,type_id) values ('Cutting out: chair seat',1,2,1);
+insert into production_phases(name, default_duration,sequence_position,type_id) values ('Wood planing', 2,3,2);
+insert into production_phases(name, default_duration,sequence_position,type_id) values ('Wood planing', 2,3,1);
+insert into production_phases(name, default_duration,sequence_position,type_id) values ('Wood painting', 3,4,2);
+insert into production_phases(name, default_duration,sequence_position,type_id) values ('Wood painting', 3,4,1);
+insert into production_phases(name, default_duration,sequence_position,type_id) values ('Assembling table', 1,5,2);
+insert into production_phases(name, default_duration,sequence_position,type_id) values ('Assembling chair', 1,5,1);
 
 insert into stage_execution(duration,estimated_start_of_stage,actual_start_of_stage,estimated_end_of_stage,actual_end_of_stage)
 values (1,DATE_ADD(CURRENT_DATE(),INTERVAL -2 DAY),DATE_ADD(CURRENT_DATE(),INTERVAL -2 DAY),DATE_ADD(CURRENT_DATE(),INTERVAL -1 DAY),DATE_ADD(CURRENT_DATE(),INTERVAL -1 DAY));
@@ -73,10 +77,6 @@ UPDATE products SET active_stage_id = 7 WHERE id = 2;
 
 UPDATE products SET order_id = 1 WHERE id = 1;
 UPDATE products SET order_id = 1 WHERE id = 2;
-
-insert into product_types(product_type) values ('chair');
-insert into product_types(product_type) values ('table');
-insert into product_types(product_type) values ('stool');
 
 insert into type_attribute(name, type_id) values ('seat height',1);
 insert into type_attribute(name, type_id) values ('backrest height',1);
