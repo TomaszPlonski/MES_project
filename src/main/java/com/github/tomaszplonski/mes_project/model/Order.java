@@ -4,9 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter @Setter
 @Entity @Builder
@@ -22,6 +20,8 @@ public class Order {
     private String name;
 
     private double orderValue;
+
+    private Boolean orderFinished;
 
     @OneToMany(mappedBy = "order")
     private List<Product> products = new ArrayList<>();

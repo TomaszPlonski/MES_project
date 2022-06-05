@@ -62,7 +62,7 @@ VALUES (2,9,7);
 insert into production_mapping(product_id, stage_execution_id, production_phase_id)
 VALUES (2,10,9);
 
-insert into orders(name,order_value) VALUES ('Pierwsze zamówienie',10250.50);
+insert into orders(name,order_value,order_finished) VALUES ('Pierwsze zamówienie',10250.50,false);
 
 UPDATE products SET active_stage_id = 3 WHERE id = 1;
 UPDATE products SET active_stage_id = 7 WHERE id = 2;
@@ -109,6 +109,7 @@ insert into product_attribute_mapping(product_id, attribute_value_id, type_attri
 values (2,6,6);
 insert into product_attribute_mapping(product_id, attribute_value_id, type_attribute_id)
 values (2,7,7);
+
 
 
 

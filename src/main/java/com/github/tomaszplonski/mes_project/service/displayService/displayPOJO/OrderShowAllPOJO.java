@@ -12,5 +12,6 @@ public class OrderShowAllPOJO {
     private Long id;
     private String name;
     private double orderValue;
+    private Boolean orderFinished;
 
 }

@@ -35,6 +35,7 @@ public class DisplayService {
         orders.forEach(o->ordersShowAll.add(OrderShowAllPOJO.builder()
                         .id(o.getId())
                         .name(o.getName())
+                        .orderFinished(o.getOrderFinished())
                         .orderValue(o.getOrderValue())
                         .build()));
 

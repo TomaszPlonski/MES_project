@@ -61,6 +61,7 @@ public class FormService {
         Order orderDB = orderRepository.save(Order.builder()
                 .orderValue(order.getOrderValue())
                 .name(order.getName())
+                .orderFinished(false)
                 .build());
 
         products.forEach(p->saveProduct(p,orderDB));

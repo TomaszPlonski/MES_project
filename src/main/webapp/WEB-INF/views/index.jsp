@@ -75,8 +75,16 @@
                                             <td>${order.id}</td>
                                             <td>${order.name}</td>
                                             <td>${order.orderValue} zł</td>
-                                            <td>tutaj będzie jakiś status</td>
-                                            <td><a href="/order/get/${order.id}" class="btn btn-rounded btn-primary">Order details</a></td>
+                                            <td><c:choose>
+                                                <c:when test="${order.orderFinished}">
+                                                    <span class="badge-dot badge-success mr-1"></span>Order completed
+                                                </c:when>
+                                                <c:when test="${!order.orderFinished}">
+                                                    <span class="badge-dot badge-brand mr-1"></span>Order in progress
+                                                </c:when>
+                                            </c:choose>
+                                            </td>
+                                            <td><a href="/order/get/${order.id}" class="btn btn-rounded btn-primary btn-sm">Order details</a></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
