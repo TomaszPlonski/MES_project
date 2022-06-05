@@ -30,9 +30,8 @@ public class TypeFormController {
     }
 
     @PostMapping(params = "createType")
-    public String createParam(@Valid @ModelAttribute("typeForm") TypeFormPOJO typeForm, BindingResult bindingResult){
+    public String createType(@Valid @ModelAttribute("typeForm") TypeFormPOJO typeForm, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            log.debug("nie przeszła walidacja");
             return "type-create";
         }
         formService.createType(typeForm);

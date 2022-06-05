@@ -89,11 +89,4 @@ public class StagesService {
         return updatedStage[0];
     }
 
-    @Transactional
-    public StageExecution stageQueuing(StageExecution previousStage, StageExecution nextStage){
-        nextStage.setEstimatedStartOfStage(previousStage.getEstimatedEndOfStage());
-        previousStage.setNextStage(stageExecutionRepository.save(nextStage));
-        stageExecutionRepository.save(previousStage);
-        return nextStage;
-    }
 }

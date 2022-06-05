@@ -1,19 +1,17 @@
 package com.github.tomaszplonski.mes_project.service.formService;
 
-import com.github.tomaszplonski.mes_project.model.ProductType;
-import com.github.tomaszplonski.mes_project.model.ProductionPhase;
-import com.github.tomaszplonski.mes_project.model.TypeAttribute;
-import com.github.tomaszplonski.mes_project.repository.ProductTypeRepository;
-import com.github.tomaszplonski.mes_project.repository.ProductionPhaseRepository;
-import com.github.tomaszplonski.mes_project.repository.TypeAttributeRepository;
+import com.github.tomaszplonski.mes_project.model.*;
+import com.github.tomaszplonski.mes_project.repository.*;
+import com.github.tomaszplonski.mes_project.service.entitiService.product.StagesOfProductService;
+import com.github.tomaszplonski.mes_project.service.formService.formPOJO.OrderFormPOJO;
+import com.github.tomaszplonski.mes_project.service.formService.formPOJO.ProductFormPOJO;
 import com.github.tomaszplonski.mes_project.service.formService.formPOJO.TypeFormPOJO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -23,6 +21,9 @@ public class FormService {
     private final ProductTypeRepository productTypeRepository;
     private final TypeAttributeRepository typeAttributeRepository;
     private final ProductionPhaseRepository productionPhaseRepository;
+    private final OrderRepository orderRepository;
+    private final StagesOfProductService stagesOfProductService;
+    private final ProductRepository productRepository;
 
     @Transactional
     public void createType(TypeFormPOJO typeFormPOJO){
@@ -55,10 +56,59 @@ public class FormService {
 
     }
 
+    public void saveOrder(OrderFormPOJO order){
+        List<ProductFormPOJO> products = order.getProducts();
+        Order orderDB = orderRepository.save(Order.builder()
+                .orderValue(order.getOrderValue())
+                .name(order.getName())
+                .build());
+
+        products.forEach(p->saveProduct(p,orderDB));
+
+
+    }
+    public void saveProduct(ProductFormPOJO productFormPOJO, Order order){
+        productRepository.save(Product.builder()
+                .order(order)
+                .productType(productFormPOJO.getProductType())
+                .typeAttributeMap(productFormPOJO.getTypeAttributeMap())
+                .productionMap(stagesOfProductService.stageInitialization(productFormPOJO.getProductType()))
+                .activeStage()
+                .plannedEndOfProduction()
+                .productionFinished(false)
+                .build());
+    }
+
+
+
     public void setPhaseSequencePosition(List<ProductionPhase> phases){
         for (int i = 0; i < phases.size(); i++) {
             phases.get(i).setSequencePosition(i+1);
         }
     }
+
+    public List<ProductType> getAllTypes(){
+        return productTypeRepository.findAll();
+    }
+
+
+
+    public void attributePutInMap(OrderFormPOJO order, String value){
+        getActualProductPOJO(order).getTypeAttributeMap()
+                .put(getActualProductPOJO(order).getAttributes().remove(0)
+                        , AttributeValue.builder().value(value).build());
+    }
+
+    public ProductFormPOJO getActualProductPOJO(OrderFormPOJO order){
+        return order.getProducts().get(order.getProducts().size()-1);
+    }
+
+    public void addNewProductPOJO(OrderFormPOJO order, Long newProductType){
+        ProductFormPOJO product = new ProductFormPOJO();
+        product.setProductType(productTypeRepository.getById(newProductType));
+        product.setAttributes(typeAttributeRepository.findAllByProductType(product.getProductType()));
+        order.getProducts().add(product);
+    }
+
 
 }

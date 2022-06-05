@@ -1,6 +1,7 @@
 package com.github.tomaszplonski.mes_project.model;
 
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -9,6 +10,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
+@Builder
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -49,5 +52,21 @@ public class Product {
     @ManyToOne
     @JoinColumn(name="product_type_id")
     private ProductType productType;
+
+    public static class ProductBuilder{
+
+        public ProductBuilder activeStage(){
+            log.debug(String.valueOf(productionMap.size()) + "przy ustalaniu activ stage");
+            this.activeStage = productionMap.values().stream().filter(e->e.getActualEndOfStage()==null).findFirst().get();
+            return this;
+        }
+
+        public ProductBuilder plannedEndOfProduction(){
+            int duration = productionMap.values().stream().mapToInt(StageExecution::getDuration).sum();
+            this.plannedEndOfProduction = activeStage.getActualStartOfStage().plusDays(duration);
+            return this;
+        }
+
+    }
 
 }

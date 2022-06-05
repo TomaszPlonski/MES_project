@@ -28,10 +28,6 @@ insert into stage_execution(duration,estimated_start_of_stage,actual_start_of_st
 values (3,DATE_ADD(CURRENT_DATE(),INTERVAL 2 DAY),null,DATE_ADD(CURRENT_DATE(),INTERVAL 5 DAY),null);
 insert into stage_execution(duration,estimated_start_of_stage,actual_start_of_stage,estimated_end_of_stage,actual_end_of_stage)
 values (1,DATE_ADD(CURRENT_DATE(),INTERVAL 5 DAY),null,DATE_ADD(CURRENT_DATE(),INTERVAL 6 DAY),null);
-UPDATE stage_execution SET next_stage_id = 2 WHERE id = 1;
-UPDATE stage_execution SET next_stage_id = 3 WHERE id = 2;
-UPDATE stage_execution SET next_stage_id = 4 WHERE id = 3;
-UPDATE stage_execution SET next_stage_id = 5 WHERE id = 4;
 insert into production_mapping(product_id, stage_execution_id, production_phase_id)
 VALUES (1,1,2);
 insert into production_mapping(product_id, stage_execution_id, production_phase_id)
@@ -54,10 +50,6 @@ insert into stage_execution(duration,estimated_start_of_stage,actual_start_of_st
 values (3,current_date(),null,DATE_ADD(CURRENT_DATE(),INTERVAL 3 DAY),null);
 insert into stage_execution(duration,estimated_start_of_stage,actual_start_of_stage,estimated_end_of_stage,actual_end_of_stage)
 values (1,DATE_ADD(CURRENT_DATE(),INTERVAL 3 DAY),null,DATE_ADD(CURRENT_DATE(),INTERVAL 4 DAY),null);
-UPDATE stage_execution SET next_stage_id = 7 WHERE id = 6;
-UPDATE stage_execution SET next_stage_id = 8 WHERE id = 7;
-UPDATE stage_execution SET next_stage_id = 9 WHERE id = 8;
-UPDATE stage_execution SET next_stage_id = 10 WHERE id = 9;
 
 insert into production_mapping(product_id, stage_execution_id, production_phase_id)
 VALUES (2,6,1);
