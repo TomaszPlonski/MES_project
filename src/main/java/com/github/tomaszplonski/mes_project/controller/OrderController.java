@@ -16,20 +16,19 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping("/order")
 @RequiredArgsConstructor
 public class OrderController {
 
     private final DisplayService displayService;
 
-    @GetMapping("/all")
+    @GetMapping("/order/all")
     public String showAllOrders(Model model){
         List<OrderShowAllPOJO> orderShowAll = displayService.orderShowAll();
         model.addAttribute("orders",orderShowAll);
-        return "order-show-all";
+        return "index";
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/order/get/{id}")
     public String showOrderDetails(@PathVariable long id, Model model){
         Order order = displayService.getOrderById(id);
         List<ProductsOfOrderPOJO> orderDetails = displayService.orderDetails(id);

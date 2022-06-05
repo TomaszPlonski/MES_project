@@ -14,19 +14,12 @@
     <!-- ============================================================== -->
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <!--                css/1235-->
-            <a class="navbar-brand" href="index.html">MES Project</a>
+            <a class="navbar-brand" href="order/all">MES Project</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
-                    <li class="nav-item ml-4">
-                        <a class ="nav-link" href="/link">Spis zleceń</a>
-                    </li>
-                    <li class="nav-item ml-4">
-                        <a class ="nav-link" href="/link">Wyszukaj</a>
-                    </li>
                 </ul>
             </div>
         </nav>
@@ -45,13 +38,13 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
-                        <h2 class="pageheader-title">E-commerce Dashboard Template </h2>
-                        <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
+                        <h2 class="pageheader-title">Stages of production details of Product nr ${stages.id}</h2>
                         <div class="page-breadcrumb">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">E-Commerce Dashboard Template</li>
+                                    <li class="breadcrumb-item"><a href="/order/all" class="breadcrumb-link">All orders</a></li>
+                                    <li class="breadcrumb-item"><a href="/order/all" class="breadcrumb-link">Order</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Stages of Product nr ${stages.id}</li>
                                 </ol>
                             </nav>
                         </div>
@@ -65,9 +58,8 @@
                 <!-- ============================================================== -->
                 <!-- main table -->
                 <!-- ============================================================== -->
-                <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card">
-                        <h3 class="card-header">Product number: ${stages.id}</h3>
                         <h3 class="card-header">Product type: ${stages.productType}</h3>
                         <div class="card-body p-0">
                             <div class="table-responsive">
@@ -105,7 +97,16 @@
                                             </td>
                                             <td>
                                                 <c:choose>
-                                                    <c:when test="${stage.delay==null}"></c:when>
+                                                    <c:when test="${stage.delay==null}">
+                                                        <c:choose>
+                                                            <c:when test="${stage.actualStartOfStage != null}">
+                                                                <form method="post" action="#######">
+                                                                    <button class="btn btn-warning btn-rounded btn-xs" name="endStep" value="${stages.id}">End stage</button>
+                                                                </form>
+                                                            </c:when>
+
+                                                        </c:choose>
+                                                    </c:when>
                                                     <c:when test="${stage.delay>0}">
                                                         <span class="badge-dot badge-danger mr-1"></span>Delay
                                                         <c:choose>

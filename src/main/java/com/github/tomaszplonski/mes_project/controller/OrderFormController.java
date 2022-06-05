@@ -1,15 +1,8 @@
 package com.github.tomaszplonski.mes_project.controller;
 
-import com.github.tomaszplonski.mes_project.model.AttributeValue;
 import com.github.tomaszplonski.mes_project.model.ProductType;
-import com.github.tomaszplonski.mes_project.model.TypeAttribute;
-import com.github.tomaszplonski.mes_project.repository.ProductTypeRepository;
 import com.github.tomaszplonski.mes_project.service.formService.FormService;
-import com.github.tomaszplonski.mes_project.service.formService.formPOJO.AttributeFormPOJO;
 import com.github.tomaszplonski.mes_project.service.formService.formPOJO.OrderFormPOJO;
-import com.github.tomaszplonski.mes_project.service.formService.formPOJO.ProductFormPOJO;
-import com.github.tomaszplonski.mes_project.service.formService.formPOJO.TypeFormPOJO;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -18,9 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Controller
@@ -70,6 +61,6 @@ public class OrderFormController {
         }
 
         formService.saveOrder(order);
-        return "order-show-all";
+        return "/WEB-INF/views/index.jsp";
     }
 }
