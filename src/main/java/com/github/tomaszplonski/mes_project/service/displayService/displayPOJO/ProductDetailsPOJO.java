@@ -15,6 +15,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class ProductDetailsPOJO {
 
+    private Long orderId;
     private Long productId;
     private String productType;
     private Map<TypeAttribute, AttributeValue> typeAttributeMap;

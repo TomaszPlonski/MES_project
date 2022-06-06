@@ -43,7 +43,7 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="/order/all" class="breadcrumb-link">All orders</a></li>
-                                    <li class="breadcrumb-item"><a href="/order/all" class="breadcrumb-link">Order</a></li>
+                                    <li class="breadcrumb-item"><a href="/order/get/${details.orderId}" class="breadcrumb-link">Order nr ${details.orderId}</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Attributes of Product nr ${stages.id}</li>
                                 </ol>
                             </nav>

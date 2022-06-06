@@ -106,8 +106,8 @@
                                             </td>
                                             <td>${details.predictedEndOfProduction}</td>
                                             <td>${details.plannedEndOfProduction}</td>
-                                            <td><a href="/product/stages/${order.id}" class="btn btn-rounded btn-primary btn-xs">Stages details</a></td>
-                                            <td><a href="/product/details/${order.id}" class="btn btn-rounded btn-brand btn-xs">Attributes</a></td>
+                                            <td><a href="/product/stages/${details.id}" class="btn btn-rounded btn-primary btn-xs">Stages details</a></td>
+                                            <td><a href="/product/details/${details.id}" class="btn btn-rounded btn-brand btn-xs">Attributes</a></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

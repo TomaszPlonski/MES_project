@@ -2,17 +2,13 @@ package com.github.tomaszplonski.mes_project.controller;
 
 import com.github.tomaszplonski.mes_project.service.displayService.DisplayService;
 import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.ProductDetailsPOJO;
-import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.ProductsOfOrderPOJO;
 import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.StagesOfProductPOJO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -38,6 +34,12 @@ public class ProductController {
         model.addAttribute("details",details);
 
         return "product-show-details";
+    }
+
+    @PostMapping(path = "/stages/end/active", params = "productId")
+    public String endActualStage(@RequestParam("productId") Long productId){
+        displayService.endActiveStage(productId);
+        return "redirect:/product/stages/" + productId;
     }
 
 }

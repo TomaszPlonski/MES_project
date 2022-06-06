@@ -106,7 +106,7 @@ public class FormService {
 
     public void addNewProductPOJO(OrderFormPOJO order, Long newProductType){
         ProductFormPOJO product = new ProductFormPOJO();
-        product.setProductType(productTypeRepository.getById(newProductType));
+        product.setProductType(productTypeRepository.findById(newProductType).orElse(new ProductType()));
         product.setAttributes(typeAttributeRepository.findAllByProductType(product.getProductType()));
         order.getProducts().add(product);
     }

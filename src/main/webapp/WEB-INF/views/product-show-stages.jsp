@@ -43,7 +43,7 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="/order/all" class="breadcrumb-link">All orders</a></li>
-                                    <li class="breadcrumb-item"><a href="/order/all" class="breadcrumb-link">Order</a></li>
+                                    <li class="breadcrumb-item"><a href="/order/get/${stages.orderId}" class="breadcrumb-link">Order nr ${stages.orderId}</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Stages of Product nr ${stages.id}</li>
                                 </ol>
                             </nav>
@@ -100,8 +100,8 @@
                                                     <c:when test="${stage.delay==null}">
                                                         <c:choose>
                                                             <c:when test="${stage.actualStartOfStage != null}">
-                                                                <form method="post" action="#######">
-                                                                    <button class="btn btn-warning btn-rounded btn-xs" name="endStep" value="${stages.id}">End stage</button>
+                                                                <form method="post" action="/product/stages/end/active">
+                                                                    <button class="btn btn-warning btn-rounded btn-xs" name="productId" value="${stages.id}">End stage</button>
                                                                 </form>
                                                             </c:when>
 

@@ -2,6 +2,7 @@ package com.github.tomaszplonski.mes_project.service.displayService;
 
 import com.github.tomaszplonski.mes_project.model.Order;
 import com.github.tomaszplonski.mes_project.model.Product;
+import com.github.tomaszplonski.mes_project.model.ProductionPhase;
 import com.github.tomaszplonski.mes_project.model.StageExecution;
 import com.github.tomaszplonski.mes_project.repository.OrderRepository;
 import com.github.tomaszplonski.mes_project.repository.ProductRepository;
@@ -83,6 +84,7 @@ public class DisplayService {
 
        return StagesOfProductPOJO.builder()
                 .id(product.getId())
+                .orderId(product.getOrder().getId())
                 .productType(product.getProductType().getProductType())
                 .stagesDetailsPOJOS(product.getProductionMap().entrySet().stream()
                         .map(e->StagesDetailsPOJO.builder()
@@ -107,7 +109,24 @@ public class DisplayService {
                 .productId(productId)
                 .productType(product.getProductType().getProductType())
                 .typeAttributeMap(product.getTypeAttributeMap())
+                .orderId(product.getOrder().getId())
                 .build();
+    }
+
+    @Transactional
+    public void endActiveStage(Long productId){
+        if (stagesOfProductService.endActiveStage(productId)){
+            Order order = productRepository.findById(productId)
+                    .orElse(new Product())
+                    .getOrder();
+
+            if(productRepository.findByOrder(order)
+                            .stream()
+                            .allMatch(Product::getProductionFinished)) {
+                order.setOrderFinished(true);
+                orderRepository.save(order);
+            }
+        }
     }
 
 
@@ -124,7 +143,7 @@ public class DisplayService {
                 .filter(e-> Objects.equals(e.getValue(),product.getActiveStage()))
                 .map(Map.Entry::getKey)
                 .findAny()
-                .get().getName();
+                .orElse(new ProductionPhase()).getName();
     }
 
     public Integer getStageDelay(StageExecution stage){
@@ -134,5 +153,6 @@ public class DisplayService {
             return  Math.toIntExact(ChronoUnit.DAYS.between(stage.getActualStartOfStage(), stage.getActualEndOfStage())) - stage.getDuration();
         }
     }
+
 
 }

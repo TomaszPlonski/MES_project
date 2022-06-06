@@ -20,6 +20,8 @@ import java.util.Map;
 @AllArgsConstructor
 public class StagesOfProductPOJO {
 
+    private Long orderId;
+
     private long id;
 
     private String productType;
