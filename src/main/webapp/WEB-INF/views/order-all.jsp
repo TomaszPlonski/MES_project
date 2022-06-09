@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%--include head oraz górnego menu. Zawiera owarcie tagu <body>--%>
 <%@include file="fragments/header.jsp"%>
@@ -18,8 +19,15 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
+                    <li class="nav-item ml-4">
+                        <form action="<c:url value="/logout"/>" method="post">
+                        <input class="btn icon-logout" type="submit" value="Logout">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -38,7 +46,11 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
-                        <h2 class="pageheader-title">Order List</h2> <a href="/" class="btn btn-primary float-lg-right">Add Order</a>
+                        <h2 class="pageheader-title">Order List</h2>
+
+                        <sec:authorize access="hasRole('OFFICE')">
+                        <a href="/" class="btn btn-primary float-lg-right">Add Order</a>
+                        </sec:authorize>
 
                         <form method="post" action="/" style="border-radius: 0px;">
                                 <label class="col-12 col-sm-2 col-form-label text-sm-left">In progress:</label>

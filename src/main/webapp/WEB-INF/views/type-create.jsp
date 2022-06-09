@@ -22,6 +22,12 @@
             </button>
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
+                    <li class="nav-item ml-4">
+                        <form action="<c:url value="/logout"/>" method="post">
+                            <input class="btn icon-logout" type="submit" value="Logout">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </nav>

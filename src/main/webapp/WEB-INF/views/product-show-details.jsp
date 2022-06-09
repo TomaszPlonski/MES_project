@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%--include head oraz górnego menu. Zawiera owarcie tagu <body>--%>
 <%@include file="fragments/header.jsp"%>
@@ -20,6 +21,12 @@
             </button>
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
+                    <li class="nav-item ml-4">
+                        <form action="<c:url value="/logout"/>" method="post">
+                            <input class="btn icon-logout" type="submit" value="Logout">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </nav>

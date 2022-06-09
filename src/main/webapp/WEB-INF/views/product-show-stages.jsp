@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%--include head oraz górnego menu. Zawiera owarcie tagu <body>--%>
 <%@include file="fragments/header.jsp"%>
@@ -20,6 +21,12 @@
             </button>
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
+                    <li class="nav-item ml-4">
+                        <form action="<c:url value="/logout"/>" method="post">
+                            <input class="btn icon-logout" type="submit" value="Logout">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -98,17 +105,22 @@
                                             <td>
                                                 <c:choose>
                                                     <c:when test="${stage.delay==null}">
+
+                                                        <sec:authorize access="hasRole('FACTORY')">
                                                         <c:choose>
                                                             <c:when test="${stage.actualStartOfStage != null}">
                                                                 <form method="post" action="/product/stages/end/active">
                                                                     <button class="btn btn-warning btn-rounded btn-xs" name="productId" value="${stages.id}">End stage</button>
                                                                 </form>
                                                             </c:when>
-
                                                         </c:choose>
+                                                        </sec:authorize>
+
+
                                                     </c:when>
                                                     <c:when test="${stage.delay>0}">
                                                         <span class="badge-dot badge-danger mr-1"></span>Delay
+
                                                         <c:choose>
                                                             <c:when test="${stage.delay==1}">
                                                                 1 day
@@ -117,6 +129,7 @@
                                                                 ${stage.delay} days
                                                             </c:otherwise>
                                                         </c:choose>
+
                                                     </c:when>
                                                     <c:when test="${stage.delay==0}">
                                                         <span class="badge-dot badge-success mr-1"></span>According to plan
