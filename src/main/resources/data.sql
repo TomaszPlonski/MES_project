@@ -2,9 +2,9 @@ insert into users(id, enabled, password, role, username) VALUES (1,1,'$2a$10$MLe
 insert into users(id, enabled, password, role, username) VALUES (2,1,'$2a$10$BB5a363ESgOZ8JKbOch0rupghu5FQGfCXWBtB4suzdCWyL19aLj9G','ROLE_OFFICE','office');
 
 insert into products(production_finished,planned_end_of_production,duration)
-values (0,DATE_ADD(CURRENT_DATE(),INTERVAL 8 DAY),8);
+values (false,DATE_ADD(CURRENT_DATE(),INTERVAL 10 DAY),8);
 insert into products(production_finished,planned_end_of_production,duration)
-values (0,DATE_ADD(CURRENT_DATE(),INTERVAL 4 DAY),8);
+values (false,DATE_ADD(CURRENT_DATE(),INTERVAL 8 DAY),8);
 
 insert into product_types(product_type) values ('chair');
 insert into product_types(product_type) values ('table');
@@ -20,17 +20,21 @@ insert into production_phases(name, default_duration,sequence_position,type_id) 
 insert into production_phases(name, default_duration,sequence_position,type_id) values ('Wood painting', 3,4,1);
 insert into production_phases(name, default_duration,sequence_position,type_id) values ('Assembling table', 1,5,2);
 insert into production_phases(name, default_duration,sequence_position,type_id) values ('Assembling chair', 1,5,1);
+insert into production_phases(name, default_duration,sequence_position,type_id) values ('Cutting out: stool legs', 1,1,3);
+insert into production_phases(name, default_duration,sequence_position,type_id) values ('Cutting out: stool seat', 1,2,3);
+insert into production_phases(name, default_duration,sequence_position,type_id) values ('Wood planing', 1,3,3);
+insert into production_phases(name, default_duration,sequence_position,type_id) values ('Assembling stool', 1,4,3);
 
 insert into stage_execution(duration,estimated_start_of_stage,actual_start_of_stage,estimated_end_of_stage,actual_end_of_stage)
 values (1,DATE_ADD(CURRENT_DATE(),INTERVAL -2 DAY),DATE_ADD(CURRENT_DATE(),INTERVAL -2 DAY),DATE_ADD(CURRENT_DATE(),INTERVAL -1 DAY),DATE_ADD(CURRENT_DATE(),INTERVAL -1 DAY));
 insert into stage_execution(duration,estimated_start_of_stage,actual_start_of_stage,estimated_end_of_stage,actual_end_of_stage)
 values (1,DATE_ADD(CURRENT_DATE(),INTERVAL -1 DAY),DATE_ADD(CURRENT_DATE(),INTERVAL -1 DAY),CURRENT_DATE(),CURRENT_DATE());
 insert into stage_execution(duration,estimated_start_of_stage,actual_start_of_stage,estimated_end_of_stage,actual_end_of_stage)
-values (2,CURRENT_DATE(),CURRENT_DATE(),DATE_ADD(CURRENT_DATE(),INTERVAL 2 DAY),null);
+values (2,CURRENT_DATE(),CURRENT_DATE(),DATE_ADD(CURRENT_DATE(),INTERVAL 4 DAY),null);
 insert into stage_execution(duration,estimated_start_of_stage,actual_start_of_stage,estimated_end_of_stage,actual_end_of_stage)
-values (3,DATE_ADD(CURRENT_DATE(),INTERVAL 2 DAY),null,DATE_ADD(CURRENT_DATE(),INTERVAL 7 DAY),null);
+values (3,DATE_ADD(CURRENT_DATE(),INTERVAL 4 DAY),null,DATE_ADD(CURRENT_DATE(),INTERVAL 7 DAY),null);
 insert into stage_execution(duration,estimated_start_of_stage,actual_start_of_stage,estimated_end_of_stage,actual_end_of_stage)
-values (1,DATE_ADD(CURRENT_DATE(),INTERVAL 7 DAY),null,DATE_ADD(CURRENT_DATE(),INTERVAL 8 DAY),null);
+values (1,DATE_ADD(CURRENT_DATE(),INTERVAL 7 DAY),null,DATE_ADD(CURRENT_DATE(),INTERVAL 10 DAY),null);
 insert into production_mapping(product_id, stage_execution_id, production_phase_id)
 VALUES (1,1,2);
 insert into production_mapping(product_id, stage_execution_id, production_phase_id)
@@ -50,9 +54,9 @@ values (1,DATE_ADD(CURRENT_DATE(),INTERVAL -3 DAY),DATE_ADD(CURRENT_DATE(),INTER
 insert into stage_execution(duration,estimated_start_of_stage,actual_start_of_stage,estimated_end_of_stage,actual_end_of_stage)
 values (2,DATE_ADD(CURRENT_DATE(),INTERVAL -2 DAY),null,current_date(),null);
 insert into stage_execution(duration,estimated_start_of_stage,actual_start_of_stage,estimated_end_of_stage,actual_end_of_stage)
-values (3,current_date(),null,DATE_ADD(CURRENT_DATE(),INTERVAL 3 DAY),null);
+values (3,current_date(),null,DATE_ADD(CURRENT_DATE(),INTERVAL 5 DAY),null);
 insert into stage_execution(duration,estimated_start_of_stage,actual_start_of_stage,estimated_end_of_stage,actual_end_of_stage)
-values (1,DATE_ADD(CURRENT_DATE(),INTERVAL 3 DAY),null,DATE_ADD(CURRENT_DATE(),INTERVAL 4 DAY),null);
+values (1,DATE_ADD(CURRENT_DATE(),INTERVAL 5 DAY),null,DATE_ADD(CURRENT_DATE(),INTERVAL 6 DAY),null);
 
 insert into production_mapping(product_id, stage_execution_id, production_phase_id)
 VALUES (2,6,1);
@@ -112,9 +116,3 @@ insert into product_attribute_mapping(product_id, attribute_value_id, type_attri
 values (2,6,6);
 insert into product_attribute_mapping(product_id, attribute_value_id, type_attribute_id)
 values (2,7,7);
-
-
-
-
-
-

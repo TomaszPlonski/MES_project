@@ -20,6 +20,10 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
+            <sec:authorize access="isAuthenticated()">
+                You are logged as <sec:authentication property="name"/>
+            </sec:authorize>
+
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
                     <li class="nav-item ml-4">
@@ -53,13 +57,13 @@
                         </sec:authorize>
 
                         <form method="post" action="/" style="border-radius: 0px;">
-                                <label class="col-12 col-sm-2 col-form-label text-sm-left">In progress:</label>
+                                <label class="col-12 col-sm-2 col-form-label text-sm-left">Show orders in progress</label>
                                 <div class="switch-button switch-button-sm">
                                 <input type="checkbox"  ${inProgressOrders} name="inProgressOrders" id="inProgressOrders" value='checked=""'><span>
                                                     <label for="inProgressOrders"></label></span>
                                 </div>
                         <div>
-                            <label class="col-12 col-sm-2 col-form-label text-sm-left">Ended</label>
+                            <label class="col-12 col-sm-2 col-form-label text-sm-left">Show ended orders</label>
                             <div class="switch-button switch-button-sm">
                                 <input type="checkbox" ${endedOrders} name="endedOrders" id="endedOrders" value='checked=""'><span>
                                                     <label for="endedOrders"></label></span>

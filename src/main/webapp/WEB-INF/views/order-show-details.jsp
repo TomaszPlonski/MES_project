@@ -19,6 +19,9 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <sec:authorize access="isAuthenticated()">
+                You are logged as <sec:authentication property="name"/>
+            </sec:authorize>
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
                     <li class="nav-item ml-4">
@@ -93,10 +96,10 @@
                                                         <span class="badge-dot badge-danger mr-1"></span>Delay
                                                         <c:choose>
                                                             <c:when test="${details.delay==1}">
-                                                                1 day
+                                                                1 working day
                                                             </c:when>
                                                             <c:otherwise>
-                                                                ${details.delay} days
+                                                                ${details.delay} working days
                                                             </c:otherwise>
                                                         </c:choose>
                                                     </c:when>
