@@ -1,8 +1,10 @@
 package com.github.tomaszplonski.mes_project.controller;
 
 
+import com.github.tomaszplonski.mes_project.model.UserEntity;
 import com.github.tomaszplonski.mes_project.repository.*;
 import com.github.tomaszplonski.mes_project.service.entitiService.product.StagesOfProductService;
+import com.github.tomaszplonski.mes_project.service.securityService.UserService;
 import com.github.tomaszplonski.mes_project.utils.DaysBetween;
 import com.github.tomaszplonski.mes_project.utils.WorkingDays;
 import lombok.RequiredArgsConstructor;
@@ -25,18 +27,18 @@ public class TestController {
     private final StageExecutionRepository stageExecutionRepository;
     private final OrderRepository orderRepository;
 
+    private final UserService userService;
+
 
 
     @GetMapping("/test")
     public void test(){
-        LocalDate sroda = LocalDate.now();
-        LocalDate poniedzialek = sroda.with(WorkingDays.addWorkingDays(-4));
 
-        int ileDni = DaysBetween.daysBetween(sroda,poniedzialek);
-    log.debug(sroda.toString() + " sroda");
-    log.debug(poniedzialek.toString() + " poniedzialek");
-    log.debug(ileDni+ " ile dni");
-     log.debug(String.valueOf(Math.toIntExact(ChronoUnit.DAYS.between(sroda,poniedzialek)))+" bez dni pracujących");
+//        UserEntity user = new UserEntity();
+//        user.setUsername("office");
+//        user.setPassword("office");
+//        userService.saveUser(user);
+
 
     }
 }

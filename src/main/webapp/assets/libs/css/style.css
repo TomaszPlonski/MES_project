@@ -1457,7 +1457,7 @@ Top Header
 }
 
 
-/* ----- User Nav Dropdown -----*/
+/* ----- UserEntity Nav Dropdown -----*/
 
 .nav-user {}
 
@@ -1506,7 +1506,7 @@ Top Header
 }
 
 
-/* ------  Top Header User Info --------  */
+/* ------  Top Header UserEntity Info --------  */
 
 
 /* -------------------- 0.4. Sidebar ----------------------- */
@@ -5267,7 +5267,7 @@ Vertical Timeline - by CodyHouse.co
 }
 
 
-/*-------------------- User icon sizes ---------------------*/
+/*-------------------- UserEntity icon sizes ---------------------*/
 
 .user-avatar-xxl {
     height: 128px;

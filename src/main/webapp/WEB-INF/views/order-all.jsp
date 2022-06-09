@@ -14,7 +14,7 @@
     <!-- ============================================================== -->
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand" href="order/all">MES Project</a>
+            <a class="navbar-brand" href="/">MES Project</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -38,7 +38,7 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
-                        <h2 class="pageheader-title">Order List</h2> <a href="/order/add" class="btn btn-primary float-lg-right">Add Order</a>
+                        <h2 class="pageheader-title">Order List</h2> <a href="/" class="btn btn-primary float-lg-right">Add Order</a>
 
                         <form method="post" action="/" style="border-radius: 0px;">
                                 <label class="col-12 col-sm-2 col-form-label text-sm-left">In progress:</label>

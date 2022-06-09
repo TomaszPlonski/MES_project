@@ -1,3 +1,6 @@
+insert into users(id, enabled, password, role, username) VALUES (1,1,'$2a$10$MLe6oZG96z6oGvjmolvz9en0EjOX4dxCBxL8RhQE59kSiwpMjZItu','ROLE_FACTORY','factory');
+insert into users(id, enabled, password, role, username) VALUES (2,1,'$2a$10$BB5a363ESgOZ8JKbOch0rupghu5FQGfCXWBtB4suzdCWyL19aLj9G','ROLE_OFFICE','office');
+
 insert into products(production_finished,planned_end_of_production,duration)
 values (0,DATE_ADD(CURRENT_DATE(),INTERVAL 8 DAY),8);
 insert into products(production_finished,planned_end_of_production,duration)

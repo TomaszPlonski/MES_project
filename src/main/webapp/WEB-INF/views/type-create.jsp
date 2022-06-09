@@ -16,7 +16,7 @@
     <!-- ============================================================== -->
     <div class="dashboard-header">
         <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand" href="order/all">MES Project</a>
+            <a class="navbar-brand" href="/">MES Project</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -44,7 +44,7 @@
                         <div class="page-breadcrumb">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="/order/all" class="breadcrumb-link">All orders</a></li>
+                                    <li class="breadcrumb-item"><a href="/" class="breadcrumb-link">All orders</a></li>
                                     <li class="breadcrumb-item"><a href="/order/add" class="breadcrumb-link">Add new order</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Create new product type</li>
                                 </ol>
