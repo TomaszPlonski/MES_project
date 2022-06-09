@@ -39,6 +39,28 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
                         <h2 class="pageheader-title">Order List</h2> <a href="/order/add" class="btn btn-primary float-lg-right">Add Order</a>
+
+                        <form method="post" action="/" style="border-radius: 0px;">
+                                <label class="col-12 col-sm-2 col-form-label text-sm-left">In progress:</label>
+                                <div class="switch-button switch-button-sm">
+                                <input type="checkbox"  ${inProgressOrders} name="inProgressOrders" id="inProgressOrders" value='checked=""'><span>
+                                                    <label for="inProgressOrders"></label></span>
+                                </div>
+                        <div>
+                            <label class="col-12 col-sm-2 col-form-label text-sm-left">Ended</label>
+                            <div class="switch-button switch-button-sm">
+                                <input type="checkbox" ${endedOrders} name="endedOrders" id="endedOrders" value='checked=""'><span>
+                                                    <label for="endedOrders"></label></span>
+                            </div>
+                         </div>
+                            <div>
+                                <label class="col-12 col-sm-2 text-sm-left"></label>
+                                    <button class="btn btn-rounded btn-primary btn-xs mt-2 mb-3">Change view</button>
+                            </div>
+
+
+                        </form>
+
                         <div class="page-breadcrumb">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">

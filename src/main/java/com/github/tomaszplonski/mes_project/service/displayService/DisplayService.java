@@ -28,17 +28,16 @@ public class DisplayService {
 
     @Transactional
     public List<OrderShowAllPOJO> orderShowAll() {
-        List<Order> orders = orderRepository.findAll();
-        List<OrderShowAllPOJO> ordersShowAll = new ArrayList<>();
+        return buildShowAllPojo(orderRepository.findAll());
+    }
 
-        orders.forEach(o->ordersShowAll.add(OrderShowAllPOJO.builder()
-                        .id(o.getId())
-                        .name(o.getName())
-                        .orderFinished(o.getOrderFinished())
-                        .orderValue(o.getOrderValue())
-                        .build()));
+    @Transactional
+    public List<OrderShowAllPOJO> orderShowInProgressOnly() {
+        return buildShowAllPojo(orderRepository.findAllByOrderFinishedIsFalse());
+    }
 
-        return ordersShowAll;
+    public List<OrderShowAllPOJO> orderShowEndedOnly() {
+        return buildShowAllPojo(orderRepository.findAllByOrderFinishedIsTrue());
     }
 
     @Transactional
@@ -128,6 +127,19 @@ public class DisplayService {
                 .map(Map.Entry::getKey)
                 .findAny()
                 .orElse(new ProductionPhase()).getName();
+    }
+
+    public List<OrderShowAllPOJO> buildShowAllPojo(List<Order> orders){
+        List<OrderShowAllPOJO> ordersShowAll = new ArrayList<>();
+
+        orders.forEach(o->ordersShowAll.add(OrderShowAllPOJO.builder()
+                .id(o.getId())
+                .name(o.getName())
+                .orderFinished(o.getOrderFinished())
+                .orderValue(o.getOrderValue())
+                .build()));
+
+        return ordersShowAll;
     }
 
 
