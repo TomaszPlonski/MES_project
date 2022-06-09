@@ -5,9 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -20,7 +18,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "production_mapping",
@@ -53,16 +51,21 @@ public class Product {
     @JoinColumn(name="product_type_id")
     private ProductType productType;
 
+   private Integer duration;
+
     public static class ProductBuilder{
 
         public ProductBuilder activeStage(){
-            log.debug(String.valueOf(productionMap.size()) + "przy ustalaniu activ stage");
             this.activeStage = productionMap.values().stream().filter(e->e.getActualEndOfStage()==null).findFirst().get();
             return this;
         }
 
+        public ProductBuilder duration(){
+            this.duration = productionMap.values().stream().mapToInt(StageExecution::getDuration).sum();
+            return this;
+        }
+
         public ProductBuilder plannedEndOfProduction(){
-            int duration = productionMap.values().stream().mapToInt(StageExecution::getDuration).sum();
             this.plannedEndOfProduction = activeStage.getActualStartOfStage().plusDays(duration);
             return this;
         }

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -21,16 +20,19 @@ public class OrderController {
 
     private final DisplayService displayService;
 
-    @GetMapping("/order/all")
+    @GetMapping("/")
     public String showAllOrders(Model model){
         List<OrderShowAllPOJO> orderShowAll = displayService.orderShowAll();
         model.addAttribute("orders",orderShowAll);
-        return "index";
+        return "order-all";
     }
 
     @GetMapping("/order/get/{id}")
     public String showOrderDetails(@PathVariable long id, Model model){
         Order order = displayService.getOrderById(id);
+        if(order.getId()==null){
+            return "404";
+        }
         List<ProductsOfOrderPOJO> orderDetails = displayService.orderDetails(id);
 
         model.addAttribute("order",order);

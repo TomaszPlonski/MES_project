@@ -1,5 +1,6 @@
 package com.github.tomaszplonski.mes_project.model;
 
+import com.github.tomaszplonski.mes_project.utils.WorkingDays;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,7 +15,7 @@ public class StageExecution {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private int duration;
 
@@ -28,7 +29,7 @@ public class StageExecution {
 
     @PrePersist
     public void prePersist(){
-        estimatedEndOfStage = estimatedStartOfStage.plusDays(duration);
+        estimatedEndOfStage =  estimatedStartOfStage.with(WorkingDays.addWorkingDays(duration));
     }
 
 }

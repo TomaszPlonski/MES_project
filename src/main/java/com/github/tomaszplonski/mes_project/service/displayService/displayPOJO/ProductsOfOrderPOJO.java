@@ -3,6 +3,7 @@ package com.github.tomaszplonski.mes_project.service.displayService.displayPOJO;
 
 import com.github.tomaszplonski.mes_project.model.Product;
 import com.github.tomaszplonski.mes_project.model.ProductType;
+import com.github.tomaszplonski.mes_project.utils.WorkingDays;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class ProductsOfOrderPOJO {
     private short status;
     private LocalDate plannedEndOfProduction;
     private LocalDate predictedEndOfProduction;
+    private int duration;
     private Integer delay;
     private String actualStageName;
 
@@ -41,7 +43,7 @@ public class ProductsOfOrderPOJO {
 
         public ProductsOfOrderPOJOBuilder predictedEndOfProduction(){
 
-            this.predictedEndOfProduction = plannedEndOfProduction.plusDays(delay);
+            this.predictedEndOfProduction = plannedEndOfProduction.with(WorkingDays.addWorkingDays(delay));
             return this;
         }
 

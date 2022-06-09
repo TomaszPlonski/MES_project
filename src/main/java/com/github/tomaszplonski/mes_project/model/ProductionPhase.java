@@ -3,8 +3,6 @@ package com.github.tomaszplonski.mes_project.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Getter
@@ -18,7 +16,7 @@ public class ProductionPhase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private String name;
 

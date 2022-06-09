@@ -21,7 +21,9 @@ public class ProductController {
     @GetMapping("/stages/{id}")
     public String showStagesOfProduct(@PathVariable long id, Model model){
         StagesOfProductPOJO stages = displayService.stagesOfProduct(id);
-
+        if(stages.getId()==null){
+            return "404";
+        }
         model.addAttribute("stages",stages);
 
         return "product-show-stages";
@@ -30,6 +32,9 @@ public class ProductController {
     @GetMapping("/details/{id}")
     public String showProductDetails(@PathVariable long id, Model model){
         ProductDetailsPOJO details = displayService.productDetails(id);
+        if(details.getOrderId()==null || details.getProductId()==null){
+            return "404";
+        }
 
         model.addAttribute("details",details);
 

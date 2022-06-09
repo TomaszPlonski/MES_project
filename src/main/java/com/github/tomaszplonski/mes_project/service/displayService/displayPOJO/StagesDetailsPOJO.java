@@ -1,13 +1,12 @@
 package com.github.tomaszplonski.mes_project.service.displayService.displayPOJO;
 
-import com.github.tomaszplonski.mes_project.model.Product;
+import com.github.tomaszplonski.mes_project.utils.DaysBetween;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 @Data
 @Builder
@@ -33,7 +32,7 @@ public class StagesDetailsPOJO {
             if (actualEndOfStage == null || actualStartOfStage == null) {
                 this.delay = null;
             } else {
-                this.delay = Math.toIntExact(ChronoUnit.DAYS.between(actualStartOfStage, actualEndOfStage)) - duration;
+                this.delay = DaysBetween.daysBetween(actualStartOfStage,actualEndOfStage) - duration;
             }
             return this;
         }

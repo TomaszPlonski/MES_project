@@ -7,14 +7,13 @@ import com.github.tomaszplonski.mes_project.model.StageExecution;
 import com.github.tomaszplonski.mes_project.repository.ProductRepository;
 import com.github.tomaszplonski.mes_project.repository.ProductionPhaseRepository;
 import com.github.tomaszplonski.mes_project.repository.StageExecutionRepository;
-import com.github.tomaszplonski.mes_project.service.entitiService.product.production.StagesService;
+import com.github.tomaszplonski.mes_project.utils.DaysBetween;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -62,12 +61,14 @@ public class StagesOfProductService {
     @Transactional
     public Integer getDelayOfProduction(Product product){
         if(product.getProductionFinished()){
-            return Math.toIntExact(ChronoUnit.DAYS.between(product.getPlannedEndOfProduction(), product.getActiveStage().getActualEndOfStage()));
+            return DaysBetween.daysBetween(product.getPlannedEndOfProduction(), product.getActiveStage().getActualEndOfStage());
         }
+        int delay = DaysBetween.daysBetween(product.getActiveStage().getEstimatedStartOfStage(), product.getActiveStage().getActualStartOfStage());
         if(product.getActiveStage().getEstimatedEndOfStage().isBefore(LocalDate.now())){
-            return Math.toIntExact(ChronoUnit.DAYS.between(product.getActiveStage().getEstimatedEndOfStage(),LocalDate.now()));
+            return delay + DaysBetween.daysBetween(product.getActiveStage().getEstimatedEndOfStage(),LocalDate.now());
         } else {
-            return Math.toIntExact(ChronoUnit.DAYS.between(product.getActiveStage().getEstimatedStartOfStage(), product.getActiveStage().getActualStartOfStage()));
+
+            return delay;
         }
     }
 
@@ -90,28 +91,18 @@ public class StagesOfProductService {
 
 
         nonEndedStages.get(0).setActualEndOfStage(LocalDate.now());
+        stageExecutionRepository.save(nonEndedStages.get(0));
         if(nonEndedStages.size()==1){
             product.setProductionFinished(true);
         }
         if (nonEndedStages.size() > 1) {
             StageExecution secondStage = nonEndedStages.get(1);
             secondStage.setActualStartOfStage(LocalDate.now());
-            secondStage.setEstimatedEndOfStage(secondStage.getActualStartOfStage().plusDays(secondStage.getDuration()));
 
-            product.setActiveStage(nonEndedStages.get(1));
-            productRepository.save(product);
-            if (nonEndedStages.size() > 2) {
-                LocalDate endDate = secondStage.getEstimatedEndOfStage();
-                for (int i = 2; i < nonEndedStages.size(); i++) {
-                    nonEndedStages.get(i).setEstimatedStartOfStage(endDate);
-                    nonEndedStages.get(i).setEstimatedEndOfStage(endDate
-                            .plusDays(nonEndedStages.get(i).getDuration()));
-                    endDate = nonEndedStages.get(i).getEstimatedEndOfStage();
-                }
-            }
+            product.setActiveStage(secondStage);
+            stageExecutionRepository.save(secondStage);
         }
-
-        stageExecutionRepository.saveAll(nonEndedStages);
+        productRepository.save(product);
         return product.getProductionFinished();
 
     }

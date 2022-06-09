@@ -3,7 +3,6 @@ package com.github.tomaszplonski.mes_project.service.displayService;
 import com.github.tomaszplonski.mes_project.model.Order;
 import com.github.tomaszplonski.mes_project.model.Product;
 import com.github.tomaszplonski.mes_project.model.ProductionPhase;
-import com.github.tomaszplonski.mes_project.model.StageExecution;
 import com.github.tomaszplonski.mes_project.repository.OrderRepository;
 import com.github.tomaszplonski.mes_project.repository.ProductRepository;
 import com.github.tomaszplonski.mes_project.repository.StageExecutionRepository;
@@ -14,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -55,26 +53,12 @@ public class DisplayService {
                         .productType(p.getProductType())
                         .delay(stagesOfProductService.getDelayOfProduction(p))
                         .plannedEndOfProduction(p.getPlannedEndOfProduction())
+                        .duration(p.getDuration())
                         .predictedEndOfProduction()
                         .actualStageName(getActualPhase(p))
                         .status(p)
                         .build()));
         return orderDetails;
-    }
-
-    @Transactional
-    public ProductsOfOrderPOJO productDetailsGeneral(Long productId){
-        Product product = getProductById(productId);
-
-        return ProductsOfOrderPOJO.builder()
-                .productType(product.getProductType())
-                .delay(stagesOfProductService.getDelayOfProduction(product))
-                .plannedEndOfProduction(product.getPlannedEndOfProduction())
-                .predictedEndOfProduction()
-                .actualStageName(getActualPhase(product))
-                .status(product)
-                .build();
-
     }
 
 
@@ -144,14 +128,6 @@ public class DisplayService {
                 .map(Map.Entry::getKey)
                 .findAny()
                 .orElse(new ProductionPhase()).getName();
-    }
-
-    public Integer getStageDelay(StageExecution stage){
-        if(stage.getActualEndOfStage()==null || stage.getActualStartOfStage()==null){
-            return null;
-        } else {
-            return  Math.toIntExact(ChronoUnit.DAYS.between(stage.getActualStartOfStage(), stage.getActualEndOfStage())) - stage.getDuration();
-        }
     }
 
 

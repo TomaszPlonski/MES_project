@@ -12,13 +12,5 @@ import java.util.Optional;
 
 public interface StageExecutionRepository extends JpaRepository<StageExecution,Long> {
 
-//    List<StageExecution> findByProduct(Product product);
-
-//    @Query("SELECT se.estimatedEndOfStage from StageExecution se WHERE se.id = :stageId")
-//    Optional<LocalDate> findEstimatedEndOfStageById(@Param("stageId") Long stageId);
-//
-////    @Query("SELECT se.productionPhase.name from StageExecution se WHERE se.id = :stageId")
-////    Optional<String> findProductionPhaseNameById(@Param("stageId") Long stageId);
-
 
 }

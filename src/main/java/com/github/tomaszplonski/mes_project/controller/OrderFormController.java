@@ -61,6 +61,6 @@ public class OrderFormController {
         }
 
         formService.saveOrder(order);
-        return "/WEB-INF/views/index.jsp";
+        return "redirect:/";
     }
 }

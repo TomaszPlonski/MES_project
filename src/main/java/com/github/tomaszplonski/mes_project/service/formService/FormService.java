@@ -75,6 +75,7 @@ public class FormService {
                 .typeAttributeMap(productFormPOJO.getTypeAttributeMap())
                 .productionMap(stagesOfProductService.stageInitialization(productFormPOJO.getProductType()))
                 .activeStage()
+                .duration()
                 .plannedEndOfProduction()
                 .productionFinished(false)
                 .build());
