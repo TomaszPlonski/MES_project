@@ -1,5 +1,6 @@
 package com.github.tomaszplonski.mes_project.model;
 
+import com.github.tomaszplonski.mes_project.utils.WorkingDays;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
@@ -66,7 +67,7 @@ public class Product {
         }
 
         public ProductBuilder plannedEndOfProduction(){
-            this.plannedEndOfProduction = activeStage.getActualStartOfStage().plusDays(duration);
+            this.plannedEndOfProduction = activeStage.getActualStartOfStage().with(WorkingDays.addWorkingDays(duration));
             return this;
         }
 
