@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class DisplayService {
+public class DisplayService implements DisplayServiceDefault {
 
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
@@ -27,20 +27,25 @@ public class DisplayService {
     private final StagesOfProductService stagesOfProductService;
 
     @Transactional
+    @Override
     public List<OrderShowAllPOJO> orderShowAll() {
         return buildShowAllPojo(orderRepository.findAll());
     }
 
     @Transactional
+    @Override
     public List<OrderShowAllPOJO> orderShowInProgressOnly() {
         return buildShowAllPojo(orderRepository.findAllByOrderFinishedIsFalse());
     }
 
+    @Transactional
+    @Override
     public List<OrderShowAllPOJO> orderShowEndedOnly() {
         return buildShowAllPojo(orderRepository.findAllByOrderFinishedIsTrue());
     }
 
     @Transactional
+    @Override
     public List<ProductsOfOrderPOJO> orderDetails(Long orderId){
         Order order = getOrderById(orderId);
         List<ProductsOfOrderPOJO> orderDetails = new ArrayList<>();
@@ -62,6 +67,7 @@ public class DisplayService {
 
 
     @Transactional
+    @Override
     public StagesOfProductPOJO stagesOfProduct(Long productId){
         Product product = getProductById(productId);
 
@@ -86,6 +92,7 @@ public class DisplayService {
     }
 
     @Transactional
+    @Override
     public ProductDetailsPOJO productDetails (Long productId){
         Product product = getProductById(productId);
         return ProductDetailsPOJO.builder()
@@ -97,6 +104,7 @@ public class DisplayService {
     }
 
     @Transactional
+    @Override
     public void endActiveStage(Long productId){
         if (stagesOfProductService.endActiveStage(productId)){
             Order order = productRepository.findById(productId)
@@ -112,15 +120,20 @@ public class DisplayService {
         }
     }
 
-
+    @Transactional
+    @Override
     public Order getOrderById(Long orderID){
         return orderRepository.findById(orderID).orElse(new Order());
     }
 
+    @Transactional
+    @Override
     public Product getProductById(Long productId){
         return productRepository.findById(productId).orElse(new Product());
     }
 
+    @Transactional
+    @Override
     public String getActualPhase(Product product){
         return product.getProductionMap().entrySet().stream()
                 .filter(e-> Objects.equals(e.getValue(),product.getActiveStage()))
@@ -129,6 +142,8 @@ public class DisplayService {
                 .orElse(new ProductionPhase()).getName();
     }
 
+    @Transactional
+    @Override
     public List<OrderShowAllPOJO> buildShowAllPojo(List<Order> orders){
         List<OrderShowAllPOJO> ordersShowAll = new ArrayList<>();
 

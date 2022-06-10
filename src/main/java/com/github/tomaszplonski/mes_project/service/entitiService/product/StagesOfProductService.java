@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class StagesOfProductService {
+public class StagesOfProductService implements StagesOfProductServiceDefault{
 
     private final ProductRepository productRepository;
     private final StageExecutionRepository stageExecutionRepository;
@@ -28,6 +28,7 @@ public class StagesOfProductService {
 
 
     @Transactional
+    @Override
     public Map<ProductionPhase,StageExecution> stageInitialization(ProductType type) {
         Map<ProductionPhase,StageExecution> map = new LinkedHashMap<>();
 
@@ -59,6 +60,7 @@ public class StagesOfProductService {
     }
 
     @Transactional
+    @Override
     public Integer getDelayOfProduction(Product product){
         if(product.getProductionFinished()){
             return DaysBetween.daysBetween(product.getPlannedEndOfProduction(), product.getActiveStage().getActualEndOfStage());
@@ -73,12 +75,14 @@ public class StagesOfProductService {
     }
 
     @Transactional
+    @Override
     public StageExecution initialEstimatedEndOfStage(StageExecution actualStage, LocalDate estimatedStart){
         actualStage.setEstimatedStartOfStage(estimatedStart);
         return stageExecutionRepository.save(actualStage);
     }
 
     @Transactional
+    @Override
     public Boolean endActiveStage(Long productId) {
         Product product = productRepository.findById(productId).orElse(new Product());
         Map<ProductionPhase, StageExecution> productionMap = product.getProductionMap();
