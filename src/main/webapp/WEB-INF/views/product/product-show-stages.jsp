@@ -3,7 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%--include head oraz górnego menu. Zawiera owarcie tagu <body>--%>
-<%@include file="fragments/header.jsp"%>
+<%@include file="../fragments/header.jsp"%>
 
 <body>
 <!-- ============================================================== -->
@@ -174,7 +174,7 @@
             </div>
         </div>
         <%--include footera i skryptów--%>
-        <jsp:include page="fragments/footer.jsp"/>
+        <jsp:include page="../fragments/footer.jsp"/>
 
 </body>
 

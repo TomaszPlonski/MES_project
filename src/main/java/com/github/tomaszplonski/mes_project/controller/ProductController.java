@@ -26,7 +26,7 @@ public class ProductController {
         }
         model.addAttribute("stages",stages);
 
-        return "product-show-stages";
+        return "product/product-show-stages";
     }
 
     @GetMapping("/details/{id}")
@@ -38,7 +38,7 @@ public class ProductController {
 
         model.addAttribute("details",details);
 
-        return "product-show-details";
+        return "product/product-show-details";
     }
 
     @PostMapping(path = "/stages/end/active", params = "productId")

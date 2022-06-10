@@ -31,33 +31,33 @@ public class OrderFormController {
     @GetMapping()
     public String prepareView(Model model){
         model.addAttribute("order",new OrderFormPOJO());
-        return "order-create";
+        return "order/order-create";
     }
 
     @PostMapping(params = "addProduct")
     public String showAttributesOfType(@ModelAttribute("order") OrderFormPOJO order,
                                        @RequestParam(name="newProductType") Long newProductType){
         formService.addNewProductPOJO(order,newProductType);
-        return "order-create";
+        return "order/order-create";
     }
 
     @PostMapping(params = "addValue")
     public String addValue(@ModelAttribute("order") OrderFormPOJO order,
                            @RequestParam(name="value") String value, Model model){
         formService.attributePutInMap(order,value);
-        return "order-create";
+        return "order/order-create";
     }
 
     @PostMapping(params = "removeProduct")
     public String removeProduct(@ModelAttribute("order") OrderFormPOJO order, @RequestParam int removeProduct){
         order.getProducts().remove(removeProduct);
-        return "order-create";
+        return "order/order-create";
     }
 
     @PostMapping(params = "createOrder")
     public String createOrder(@Valid @ModelAttribute("order") OrderFormPOJO order, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "order-create";
+            return "order/order-create";
         }
 
         formService.saveOrder(order);

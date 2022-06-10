@@ -3,7 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%--include head oraz górnego menu. Zawiera owarcie tagu <body>--%>
-<%@include file="fragments/header.jsp"%>
+<%@include file="../fragments/header.jsp"%>
 
 <body>
 <!-- ============================================================== -->
@@ -22,7 +22,6 @@
             <sec:authorize access="isAuthenticated()">
                 You are logged as <sec:authentication property="name"/>
             </sec:authorize>
-
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
                     <li class="nav-item ml-4">
@@ -49,13 +48,12 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
-                        <h2 class="pageheader-title">Attributes of Product nr ${details.productId}</h2>
+                        <h2 class="pageheader-title">Details of Order nr ${order.id}</h2>
                         <div class="page-breadcrumb">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="/ class="breadcrumb-link">All orders</a></li>
-                                    <li class="breadcrumb-item"><a href="/order/get/${details.orderId}" class="breadcrumb-link">Order nr ${details.orderId}</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Attributes of Product nr ${stages.id}</li>
+                                    <li class="breadcrumb-item"><a href="/" class="breadcrumb-link">All orders</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Order nr ${order.id}</li>
                                 </ol>
                             </nav>
                         </div>
@@ -71,21 +69,55 @@
                 <!-- ============================================================== -->
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card">
-                        <h3 class="card-header">Product type: ${details.productType}</h3>
+                        <h3 class="card-header">Order name: ${order.name}</h3>
+                        <h5 class="card-header">Value: ${order.orderValue}zł</h5>
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class="bg-light">
                                     <tr class="border-0">
-                                        <th class="border-0">Attribute</th>
-                                        <th class="border-0">Value</th>
+                                        <th class="border-0">Product number</th>
+                                        <th class="border-0">Product Type</th>
+                                        <th class="border-0">Actual Stage</th>
+                                        <th class="border-0">Status</th>
+                                        <th class="border-0">Predicted End</th>
+                                        <th class="border-0">Planned End</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach items="${details.typeAttributeMap}" var="detail">
+                                    <c:forEach items="${orderDetails}" var="details">
                                         <tr>
-                                            <td>${detail.key.name}</td>
-                                            <td>${detail.value.value}</td>
+                                            <td>${details.id}</td>
+                                            <td>${details.productType.productType}</td>
+                                            <td>${details.actualStageName}</td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${details.status==-1}">
+                                                        <span class="badge-dot badge-danger mr-1"></span>Delay
+                                                        <c:choose>
+                                                            <c:when test="${details.delay==1}">
+                                                                1 working day
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                ${details.delay} working days
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:when>
+                                                    <c:when test="${details.status==0}">
+                                                        <span class="badge-dot badge-primary mr-1"></span>Not started
+                                                    </c:when>
+                                                    <c:when test="${details.status==1}">
+                                                        <span class="badge-dot badge-brand mr-1"></span>In production
+                                                    </c:when>
+                                                    <c:when test="${details.status==2}">
+                                                        <span class="badge-dot badge-success mr-1"></span>Finished
+                                                    </c:when>
+                                                </c:choose>
+                                            </td>
+                                            <td>${details.predictedEndOfProduction}</td>
+                                            <td>${details.plannedEndOfProduction}</td>
+                                            <td><a href="/product/stages/${details.id}" class="btn btn-rounded btn-primary btn-xs">Stages details</a></td>
+                                            <td><a href="/product/details/${details.id}" class="btn btn-rounded btn-brand btn-xs">Attributes</a></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -100,7 +132,7 @@
             </div>
         </div>
         <%--include footera i skryptów--%>
-        <jsp:include page="fragments/footer.jsp"/>
+        <jsp:include page="../fragments/footer.jsp"/>
 
 </body>
 

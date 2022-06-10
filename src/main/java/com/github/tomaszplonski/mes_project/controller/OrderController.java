@@ -29,7 +29,7 @@ public class OrderController {
             model.addAttribute("endedOrders","checked=\"\"");
         }
 
-        return "order-all";
+        return "order/order-all";
     }
 
     @GetMapping("/order/get/{id}")
@@ -43,7 +43,7 @@ public class OrderController {
         model.addAttribute("order",order);
         model.addAttribute("orderDetails",orderDetails);
 
-        return "order-show-details";
+        return "order/order-show-details";
     }
 
     @PostMapping(params = {"inProgressOrders", "endedOrders"})
@@ -59,7 +59,7 @@ public class OrderController {
         model.addAttribute("orders",orderShowInProgressOnly);
         model.addAttribute("inProgressOrders",inProgressOrders);
         model.addAttribute("endedOrders","");
-        return "order-all";
+        return "order/order-all";
     }
 
     @PostMapping(params = "endedOrders")
@@ -68,14 +68,14 @@ public class OrderController {
         model.addAttribute("orders",orderShowEndedOnly);
         model.addAttribute("endedOrders",endedOrders);
         model.addAttribute("inProgressOrders","");
-        return "order-all";
+        return "order/order-all";
     }
 
     @PostMapping()
     public String noParams(Model model){
         model.addAttribute("endedOrders","");
         model.addAttribute("inProgressOrders","");
-        return "order-all";
+        return "order/order-all";
     }
 
 }
