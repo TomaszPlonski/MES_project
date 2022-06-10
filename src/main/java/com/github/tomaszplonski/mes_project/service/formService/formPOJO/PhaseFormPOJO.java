@@ -5,10 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.*;
 
+@Validated
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,7 +19,8 @@ public class PhaseFormPOJO {
     @NotBlank @Length(min = 3)
     private String phaseName;
 
-    @NotBlank @Positive
+    @Min(value = 0)
+    @Digits(integer = 2,fraction = 0)
     private int defaultDuration;
 
     private int sequencePosition;

@@ -7,7 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +22,11 @@ public class TypeFormPOJO {
     @NotBlank @Length(min = 3)
     private String productType;
 
+    @NotEmpty
     @Builder.Default
     private List<AttributeFormPOJO> attributes = new ArrayList<>();
 
+    @NotEmpty
     @Builder.Default
     private List<PhaseFormPOJO> phases = new ArrayList<>();
 

@@ -9,10 +9,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Validated
 @Slf4j
 @Controller
 @RequestMapping("/type/add")
@@ -34,7 +36,7 @@ public class TypeFormController {
         }
         formService.createType(typeForm);
 
-        return null;
+        return "redirect:/order/add";
     }
 
     @PostMapping(params = "addAttribute")
@@ -50,7 +52,10 @@ public class TypeFormController {
     }
 
     @PostMapping(params = "addPhase")
-    public String addPhase(@ModelAttribute("typeForm") TypeFormPOJO typeForm, PhaseFormPOJO phaseFormPOJO){
+    public String addPhase(@Valid @ModelAttribute("typeForm") TypeFormPOJO typeForm, BindingResult bindingResult, PhaseFormPOJO phaseFormPOJO){
+        if(bindingResult.hasErrors()){
+            return "type-create";
+        }
         typeForm.getPhases().add(phaseFormPOJO);
         return "type-create";
     }

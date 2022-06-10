@@ -53,7 +53,7 @@
                         <h2 class="pageheader-title">Order List</h2>
 
                         <sec:authorize access="hasRole('OFFICE')">
-                        <a href="/" class="btn btn-primary float-lg-right">Add Order</a>
+                        <a href="/order/add" class="btn btn-primary float-lg-right">Add Order</a>
                         </sec:authorize>
 
                         <form method="post" action="/" style="border-radius: 0px;">
