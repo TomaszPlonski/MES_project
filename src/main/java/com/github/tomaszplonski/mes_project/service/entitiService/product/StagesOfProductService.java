@@ -8,6 +8,7 @@ import com.github.tomaszplonski.mes_project.repository.ProductRepository;
 import com.github.tomaszplonski.mes_project.repository.ProductionPhaseRepository;
 import com.github.tomaszplonski.mes_project.repository.StageExecutionRepository;
 import com.github.tomaszplonski.mes_project.utils.DaysBetween;
+import com.github.tomaszplonski.mes_project.utils.WorkingDays;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -44,7 +45,7 @@ public class StagesOfProductService implements StagesOfProductServiceDefault{
 
 
 
-        LocalDate start = LocalDate.now();
+        LocalDate start = LocalDate.now().with(WorkingDays.addWorkingDays(0));
         stagesTemp.get(0).setActualStartOfStage(start);
 
         for (StageExecution stageExecution : stagesTemp) {
@@ -63,14 +64,18 @@ public class StagesOfProductService implements StagesOfProductServiceDefault{
     @Override
     public Integer getDelayOfProduction(Product product){
         if(product.getProductionFinished()){
-            return DaysBetween.daysBetween(product.getPlannedEndOfProduction(), product.getActiveStage().getActualEndOfStage());
-        }
-        int delay = DaysBetween.daysBetween(product.getActiveStage().getEstimatedStartOfStage(), product.getActiveStage().getActualStartOfStage());
-        if(product.getActiveStage().getEstimatedEndOfStage().isBefore(LocalDate.now())){
-            return delay + DaysBetween.daysBetween(product.getActiveStage().getEstimatedEndOfStage(),LocalDate.now());
-        } else {
+            return DaysBetween.daysBetween(product.getPlannedEndOfProduction(),
+                    product.getActiveStage().getActualEndOfStage());
 
-            return delay;
+        }
+        if(!product.getActiveStage().getEstimatedEndOfStage().isBefore(LocalDate.now())){
+            return DaysBetween.daysBetween(product.getActiveStage().getEstimatedStartOfStage(),
+                    product.getActiveStage().getActualStartOfStage());
+
+        } else {
+            return DaysBetween.daysBetween(product.getActiveStage().getEstimatedEndOfStage(),
+                    LocalDate.now().with(WorkingDays.addWorkingDays(0)));
+
         }
     }
 
@@ -93,15 +98,15 @@ public class StagesOfProductService implements StagesOfProductServiceDefault{
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toList());
 
-
-        nonEndedStages.get(0).setActualEndOfStage(LocalDate.now());
+        LocalDate endOfStage = LocalDate.now().with(WorkingDays.addWorkingDays(0));
+        nonEndedStages.get(0).setActualEndOfStage(endOfStage);
         stageExecutionRepository.save(nonEndedStages.get(0));
         if(nonEndedStages.size()==1){
             product.setProductionFinished(true);
         }
         if (nonEndedStages.size() > 1) {
             StageExecution secondStage = nonEndedStages.get(1);
-            secondStage.setActualStartOfStage(LocalDate.now());
+            secondStage.setActualStartOfStage(endOfStage);
 
             product.setActiveStage(secondStage);
             stageExecutionRepository.save(secondStage);
