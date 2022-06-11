@@ -23,12 +23,10 @@ public class TypeFormPOJO {
     private String productType;
 
     @NotEmpty
-    @Valid
     @Builder.Default
     private List<AttributeFormPOJO> attributes = new ArrayList<>();
 
     @NotEmpty
-    @Valid
     @Builder.Default
     private List<PhaseFormPOJO> phases = new ArrayList<>();
 

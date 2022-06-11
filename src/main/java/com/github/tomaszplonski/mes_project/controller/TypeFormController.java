@@ -55,9 +55,6 @@ public class TypeFormController {
 
     @PostMapping(params = "addPhase")
     public String addPhase(@Valid @ModelAttribute("typeForm") TypeFormPOJO typeForm, BindingResult bindingResult, PhaseFormPOJO phaseFormPOJO){
-        if(bindingResult.hasErrors()) {
-            return "type/type-create";
-        }
         typeForm.getPhases().add(phaseFormPOJO);
         return "type/type-create";
     }

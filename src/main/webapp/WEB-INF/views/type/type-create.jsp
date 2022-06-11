@@ -115,12 +115,12 @@
 
                                             </div>
                                         </c:forEach>
-                                        <errors:hasBindErrors name="typeForm">
-                                            <c:forEach var="error" items="${errors.allErrors}">
-                                                <b class=alert-danger"><errors:message  message="${error}" /></b>
-                                                <br/>
-                                            </c:forEach>
-                                        </errors:hasBindErrors>
+<%--                                        <errors:hasBindErrors name="typeForm">--%>
+<%--                                            <c:forEach var="error" items="${errors.allErrors}">--%>
+<%--                                                <b class=alert-danger"><errors:message  message="${error}" /></b>--%>
+<%--                                                <br/>--%>
+<%--                                            </c:forEach>--%>
+<%--                                        </errors:hasBindErrors>--%>
 
                                         </label>
                                     </div>
