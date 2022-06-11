@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="errors" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%--include head oraz górnego menu. Zawiera owarcie tagu <body>--%>
@@ -111,8 +112,16 @@
                                                 <input type="number" name="phases[${status.index}].defaultDuration"
                                                        value="${typeForm.phases[status.index].defaultDuration}"/>
                                                 <button name="removePhase" value="${status.index}">Remove</button>
+
                                             </div>
                                         </c:forEach>
+                                        <errors:hasBindErrors name="typeForm">
+                                            <c:forEach var="error" items="${errors.allErrors}">
+                                                <b class=alert-danger"><errors:message  message="${error}" /></b>
+                                                <br/>
+                                            </c:forEach>
+                                        </errors:hasBindErrors>
+
                                         </label>
                                     </div>
 

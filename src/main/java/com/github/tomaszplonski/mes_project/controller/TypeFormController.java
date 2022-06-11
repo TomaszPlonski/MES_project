@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@Validated
 @Slf4j
 @Controller
 @RequestMapping("/type/add")
@@ -32,6 +31,9 @@ public class TypeFormController {
     @PostMapping(params = "createType")
     public String createType(@Valid @ModelAttribute("typeForm") TypeFormPOJO typeForm, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
+            log.debug("===========");
+            bindingResult.getModel().values().forEach(e->log.debug("Values" + e.toString()));
+            bindingResult.getModel().keySet().forEach(e->log.debug("keys" + e));
             return "type/type-create";
         }
         formService.createType(typeForm);
@@ -53,7 +55,7 @@ public class TypeFormController {
 
     @PostMapping(params = "addPhase")
     public String addPhase(@Valid @ModelAttribute("typeForm") TypeFormPOJO typeForm, BindingResult bindingResult, PhaseFormPOJO phaseFormPOJO){
-        if(bindingResult.hasErrors()){
+        if(bindingResult.hasErrors()) {
             return "type/type-create";
         }
         typeForm.getPhases().add(phaseFormPOJO);
