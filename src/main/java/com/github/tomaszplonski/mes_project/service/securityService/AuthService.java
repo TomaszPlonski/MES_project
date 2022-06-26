@@ -1,7 +1,6 @@
 package com.github.tomaszplonski.mes_project.service.securityService;
 
 import com.github.tomaszplonski.mes_project.model.UserEntity;
-import com.github.tomaszplonski.mes_project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class AuthService implements UserDetailsService {

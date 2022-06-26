@@ -47,7 +47,6 @@ public class Product {
     @MapKeyJoinColumn(name = "type_attribute_id")
     private Map<TypeAttribute, AttributeValue> typeAttributeMap = new LinkedHashMap<>();
 
-
     @ManyToOne
     @JoinColumn(name="product_type_id")
     private ProductType productType;

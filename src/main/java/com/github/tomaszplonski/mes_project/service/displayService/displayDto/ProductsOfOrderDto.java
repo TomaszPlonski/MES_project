@@ -1,6 +1,5 @@
 package com.github.tomaszplonski.mes_project.service.displayService.displayDto;
 
-
 import com.github.tomaszplonski.mes_project.model.Product;
 import com.github.tomaszplonski.mes_project.model.ProductType;
 import com.github.tomaszplonski.mes_project.utils.WorkingDays;

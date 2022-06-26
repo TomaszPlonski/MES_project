@@ -48,8 +48,7 @@ public class DisplayServiceImpl implements DisplayService {
         Order order = getOrderById(orderId);
         List<ProductsOfOrderDto> orderDetails = new ArrayList<>();
         List<Product> products = productRepository.findByOrder(order);
-
-
+        
         products.forEach(p->orderDetails.add(ProductsOfOrderDto.builder()
                         .id(p.getId())
                         .productType(p.getProductType())

@@ -27,7 +27,6 @@ public class StagesOfProductServiceImpl implements StagesOfProductService {
     private final StageExecutionRepository stageExecutionRepository;
     private final ProductionPhaseRepository productionPhaseRepository;
 
-
     @Transactional
     @Override
     public Map<ProductionPhase,StageExecution> stageInitialization(ProductType type) {
@@ -42,8 +41,6 @@ public class StagesOfProductServiceImpl implements StagesOfProductService {
         phases.forEach(p->stagesTemp.add(StageExecution.builder()
                 .duration(p.getDefaultDuration())
                 .build()));
-
-
 
         LocalDate start = LocalDate.now().with(WorkingDays.addWorkingDays(0));
         stagesTemp.get(0).setActualStartOfStage(start);

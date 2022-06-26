@@ -1,6 +1,5 @@
 package com.github.tomaszplonski.mes_project.model;
 
-
 import lombok.*;
 
 import javax.persistence.*;
