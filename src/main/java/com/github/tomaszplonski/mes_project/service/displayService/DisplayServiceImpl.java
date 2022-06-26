@@ -24,31 +24,27 @@ public class DisplayServiceImpl implements DisplayService {
     private final ProductRepository productRepository;
     private final StagesOfProductService stagesOfProductService;
 
-    @Transactional
     @Override
     public List<OrderShowAllDto> orderShowAll() {
-        return buildShowAllPojo(orderRepository.findAll());
+        return buildShowAllDto(orderRepository.findAll());
     }
 
-    @Transactional
     @Override
     public List<OrderShowAllDto> orderShowInProgressOnly() {
-        return buildShowAllPojo(orderRepository.findAllByOrderFinishedIsFalse());
+        return buildShowAllDto(orderRepository.findAllByOrderFinishedIsFalse());
     }
 
-    @Transactional
     @Override
     public List<OrderShowAllDto> orderShowEndedOnly() {
-        return buildShowAllPojo(orderRepository.findAllByOrderFinishedIsTrue());
+        return buildShowAllDto(orderRepository.findAllByOrderFinishedIsTrue());
     }
 
-    @Transactional
     @Override
     public List<ProductsOfOrderDto> orderDetails(Long orderId){
         Order order = getOrderById(orderId);
         List<ProductsOfOrderDto> orderDetails = new ArrayList<>();
         List<Product> products = productRepository.findByOrder(order);
-        
+
         products.forEach(p->orderDetails.add(ProductsOfOrderDto.builder()
                         .id(p.getId())
                         .productType(p.getProductType())
@@ -62,8 +58,6 @@ public class DisplayServiceImpl implements DisplayService {
         return orderDetails;
     }
 
-
-    @Transactional
     @Override
     public StagesOfProductDto stagesOfProduct(Long productId){
         Product product = getProductById(productId);
@@ -88,7 +82,6 @@ public class DisplayServiceImpl implements DisplayService {
 
     }
 
-    @Transactional
     @Override
     public ProductDetailsDto productDetails (Long productId){
         Product product = getProductById(productId);
@@ -117,19 +110,16 @@ public class DisplayServiceImpl implements DisplayService {
         }
     }
 
-    @Transactional
     @Override
     public Order getOrderById(Long orderID){
         return orderRepository.findById(orderID).orElse(new Order());
     }
 
-    @Transactional
     @Override
     public Product getProductById(Long productId){
         return productRepository.findById(productId).orElse(new Product());
     }
 
-    @Transactional
     @Override
     public String getActualPhase(Product product){
         return product.getProductionMap().entrySet().stream()
@@ -139,9 +129,8 @@ public class DisplayServiceImpl implements DisplayService {
                 .orElse(new ProductionPhase()).getName();
     }
 
-    @Transactional
     @Override
-    public List<OrderShowAllDto> buildShowAllPojo(List<Order> orders){
+    public List<OrderShowAllDto> buildShowAllDto(List<Order> orders){
         List<OrderShowAllDto> ordersShowAll = new ArrayList<>();
 
         orders.forEach(o->ordersShowAll.add(OrderShowAllDto.builder()

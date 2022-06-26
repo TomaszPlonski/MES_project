@@ -57,7 +57,6 @@ public class StagesOfProductServiceImpl implements StagesOfProductService {
 
     }
 
-    @Transactional
     @Override
     public Integer getDelayOfProduction(Product product){
         if(product.getProductionFinished()){

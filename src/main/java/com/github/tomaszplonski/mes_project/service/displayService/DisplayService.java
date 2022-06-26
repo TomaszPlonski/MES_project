@@ -31,7 +31,7 @@ public interface DisplayService {
 
     String getActualPhase(Product product);
 
-    List<OrderShowAllDto> buildShowAllPojo(List<Order> orders);
+    List<OrderShowAllDto> buildShowAllDto(List<Order> orders);
 
 
 }
