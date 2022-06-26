@@ -37,7 +37,7 @@ public class OrderFormController {
     @PostMapping(params = "addProduct")
     public String showAttributesOfType(@ModelAttribute("order") OrderFormDto order,
                                        @RequestParam(name="newProductType") Long newProductType){
-        formService.addNewProductPOJO(order,newProductType);
+        formService.addNewProductDto(order,newProductType);
         return "order/order-create";
     }
 
