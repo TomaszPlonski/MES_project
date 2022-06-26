@@ -1,4 +1,4 @@
-package com.github.tomaszplonski.mes_project.service.formService.formPOJO;
+package com.github.tomaszplonski.mes_project.service.formService.formDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderFormPOJO {
+public class OrderFormDto {
 
     @NotBlank @Length(min = 3)
     private String name;
@@ -24,6 +24,6 @@ public class OrderFormPOJO {
     private double orderValue;
 
     @Builder.Default
-    private List<ProductFormPOJO> products = new ArrayList<>();
+    private List<ProductFormDto> products = new ArrayList<>();
 
 }

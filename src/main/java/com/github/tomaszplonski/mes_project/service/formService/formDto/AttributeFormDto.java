@@ -1,4 +1,4 @@
-package com.github.tomaszplonski.mes_project.service.formService.formPOJO;
+package com.github.tomaszplonski.mes_project.service.formService.formDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AttributeFormPOJO {
+public class AttributeFormDto {
 
     @NotBlank
     @Length(min = 3)

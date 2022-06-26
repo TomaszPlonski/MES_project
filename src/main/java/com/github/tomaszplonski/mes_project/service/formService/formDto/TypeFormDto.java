@@ -1,13 +1,11 @@
-package com.github.tomaszplonski.mes_project.service.formService.formPOJO;
+package com.github.tomaszplonski.mes_project.service.formService.formDto;
 
-import jdk.jfr.Category;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
@@ -17,17 +15,17 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TypeFormPOJO {
+public class TypeFormDto {
 
     @NotBlank @Length(min = 3)
     private String productType;
 
     @NotEmpty
     @Builder.Default
-    private List<AttributeFormPOJO> attributes = new ArrayList<>();
+    private List<AttributeFormDto> attributes = new ArrayList<>();
 
     @NotEmpty
     @Builder.Default
-    private List<PhaseFormPOJO> phases = new ArrayList<>();
+    private List<PhaseFormDto> phases = new ArrayList<>();
 
 }

@@ -3,9 +3,9 @@ package com.github.tomaszplonski.mes_project.service.formService;
 import com.github.tomaszplonski.mes_project.model.*;
 import com.github.tomaszplonski.mes_project.repository.*;
 import com.github.tomaszplonski.mes_project.service.entitiService.product.StagesOfProductService;
-import com.github.tomaszplonski.mes_project.service.formService.formPOJO.OrderFormPOJO;
-import com.github.tomaszplonski.mes_project.service.formService.formPOJO.ProductFormPOJO;
-import com.github.tomaszplonski.mes_project.service.formService.formPOJO.TypeFormPOJO;
+import com.github.tomaszplonski.mes_project.service.formService.formDto.OrderFormDto;
+import com.github.tomaszplonski.mes_project.service.formService.formDto.ProductFormDto;
+import com.github.tomaszplonski.mes_project.service.formService.formDto.TypeFormDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,15 +27,15 @@ public class FormService implements FormServiceDefault{
 
     @Transactional
     @Override
-    public void createType(TypeFormPOJO typeFormPOJO){
+    public void createType(TypeFormDto typeFormDto){
         List<TypeAttribute> typeAttributes = new ArrayList<>();
-        typeFormPOJO.getAttributes().forEach(a->typeAttributes
+        typeFormDto.getAttributes().forEach(a->typeAttributes
                 .add(TypeAttribute.builder()
                 .name(a.getAttribute())
                 .build()));
 
         List<ProductionPhase> productionPhases = new ArrayList<>();
-        typeFormPOJO.getPhases().forEach(p->productionPhases
+        typeFormDto.getPhases().forEach(p->productionPhases
                 .add(ProductionPhase.builder()
                         .name(p.getPhaseName())
                         .defaultDuration(p.getDefaultDuration())
@@ -44,7 +44,7 @@ public class FormService implements FormServiceDefault{
 
 
         ProductType productType= productTypeRepository.save(ProductType.builder()
-                .productType(typeFormPOJO.getProductType())
+                .productType(typeFormDto.getProductType())
                 .typeAttributes(typeAttributes)
                 .ProductionPhase(productionPhases)
                 .build());
@@ -59,8 +59,8 @@ public class FormService implements FormServiceDefault{
 
     @Override
     @Transactional
-    public void saveOrder(OrderFormPOJO order){
-        List<ProductFormPOJO> products = order.getProducts();
+    public void saveOrder(OrderFormDto order){
+        List<ProductFormDto> products = order.getProducts();
         Order orderDB = orderRepository.save(Order.builder()
                 .orderValue(order.getOrderValue())
                 .name(order.getName())
@@ -74,12 +74,12 @@ public class FormService implements FormServiceDefault{
 
     @Transactional
     @Override
-    public void saveProduct(ProductFormPOJO productFormPOJO, Order order){
+    public void saveProduct(ProductFormDto productFormDto, Order order){
         productRepository.save(Product.builder()
                 .order(order)
-                .productType(productFormPOJO.getProductType())
-                .typeAttributeMap(productFormPOJO.getTypeAttributeMap())
-                .productionMap(stagesOfProductService.stageInitialization(productFormPOJO.getProductType()))
+                .productType(productFormDto.getProductType())
+                .typeAttributeMap(productFormDto.getTypeAttributeMap())
+                .productionMap(stagesOfProductService.stageInitialization(productFormDto.getProductType()))
                 .activeStage()
                 .duration()
                 .plannedEndOfProduction()
@@ -101,18 +101,18 @@ public class FormService implements FormServiceDefault{
 
 
 
-    public void attributePutInMap(OrderFormPOJO order, String value){
+    public void attributePutInMap(OrderFormDto order, String value){
         getActualProductPOJO(order).getTypeAttributeMap()
                 .put(getActualProductPOJO(order).getAttributes().remove(0)
                         , AttributeValue.builder().value(value).build());
     }
 
-    public ProductFormPOJO getActualProductPOJO(OrderFormPOJO order){
+    public ProductFormDto getActualProductPOJO(OrderFormDto order){
         return order.getProducts().get(order.getProducts().size()-1);
     }
 
-    public void addNewProductPOJO(OrderFormPOJO order, Long newProductType){
-        ProductFormPOJO product = new ProductFormPOJO();
+    public void addNewProductPOJO(OrderFormDto order, Long newProductType){
+        ProductFormDto product = new ProductFormDto();
         product.setProductType(productTypeRepository.findById(newProductType).orElse(new ProductType()));
         product.setAttributes(typeAttributeRepository.findAllByProductType(product.getProductType()));
         order.getProducts().add(product);

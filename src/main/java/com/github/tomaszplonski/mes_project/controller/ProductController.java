@@ -1,8 +1,8 @@
 package com.github.tomaszplonski.mes_project.controller;
 
 import com.github.tomaszplonski.mes_project.service.displayService.DisplayService;
-import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.ProductDetailsPOJO;
-import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.StagesOfProductPOJO;
+import com.github.tomaszplonski.mes_project.service.displayService.displayDto.ProductDetailsDto;
+import com.github.tomaszplonski.mes_project.service.displayService.displayDto.StagesOfProductDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ public class ProductController {
 
     @GetMapping("/stages/{id}")
     public String showStagesOfProduct(@PathVariable long id, Model model){
-        StagesOfProductPOJO stages = displayService.stagesOfProduct(id);
+        StagesOfProductDto stages = displayService.stagesOfProduct(id);
         if(stages.getId()==null){
             return "404";
         }
@@ -31,7 +31,7 @@ public class ProductController {
 
     @GetMapping("/details/{id}")
     public String showProductDetails(@PathVariable long id, Model model){
-        ProductDetailsPOJO details = displayService.productDetails(id);
+        ProductDetailsDto details = displayService.productDetails(id);
         if(details.getOrderId()==null || details.getProductId()==null){
             return "404";
         }

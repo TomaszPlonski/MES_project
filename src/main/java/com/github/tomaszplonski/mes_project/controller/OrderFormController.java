@@ -2,7 +2,7 @@ package com.github.tomaszplonski.mes_project.controller;
 
 import com.github.tomaszplonski.mes_project.model.ProductType;
 import com.github.tomaszplonski.mes_project.service.formService.FormService;
-import com.github.tomaszplonski.mes_project.service.formService.formPOJO.OrderFormPOJO;
+import com.github.tomaszplonski.mes_project.service.formService.formDto.OrderFormDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -30,32 +30,32 @@ public class OrderFormController {
 
     @GetMapping()
     public String prepareView(Model model){
-        model.addAttribute("order",new OrderFormPOJO());
+        model.addAttribute("order",new OrderFormDto());
         return "order/order-create";
     }
 
     @PostMapping(params = "addProduct")
-    public String showAttributesOfType(@ModelAttribute("order") OrderFormPOJO order,
+    public String showAttributesOfType(@ModelAttribute("order") OrderFormDto order,
                                        @RequestParam(name="newProductType") Long newProductType){
         formService.addNewProductPOJO(order,newProductType);
         return "order/order-create";
     }
 
     @PostMapping(params = "addValue")
-    public String addValue(@ModelAttribute("order") OrderFormPOJO order,
+    public String addValue(@ModelAttribute("order") OrderFormDto order,
                            @RequestParam(name="value") String value, Model model){
         formService.attributePutInMap(order,value);
         return "order/order-create";
     }
 
     @PostMapping(params = "removeProduct")
-    public String removeProduct(@ModelAttribute("order") OrderFormPOJO order, @RequestParam int removeProduct){
+    public String removeProduct(@ModelAttribute("order") OrderFormDto order, @RequestParam int removeProduct){
         order.getProducts().remove(removeProduct);
         return "order/order-create";
     }
 
     @PostMapping(params = "createOrder")
-    public String createOrder(@Valid @ModelAttribute("order") OrderFormPOJO order, BindingResult bindingResult){
+    public String createOrder(@Valid @ModelAttribute("order") OrderFormDto order, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return "order/order-create";
         }

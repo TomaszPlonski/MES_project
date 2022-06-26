@@ -1,4 +1,4 @@
-package com.github.tomaszplonski.mes_project.service.formService.formPOJO;
+package com.github.tomaszplonski.mes_project.service.formService.formDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,7 @@ import javax.validation.constraints.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PhaseFormPOJO {
+public class PhaseFormDto {
 
     @NotBlank @Length(min = 3)
     private String phaseName;

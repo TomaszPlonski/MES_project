@@ -1,4 +1,4 @@
-package com.github.tomaszplonski.mes_project.service.displayService.displayPOJO;
+package com.github.tomaszplonski.mes_project.service.displayService.displayDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data @Builder
 @NoArgsConstructor @AllArgsConstructor
-public class OrderShowAllPOJO {
+public class OrderShowAllDto {
 
     private Long id;
     private String name;

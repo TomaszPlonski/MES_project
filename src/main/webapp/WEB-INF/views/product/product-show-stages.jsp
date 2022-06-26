@@ -84,7 +84,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach items="${stages.stagesDetailsPOJOS}" var="stage">
+                                    <c:forEach items="${stages.stagesDetailsDtos}" var="stage">
                                         <tr>
                                             <td>${stage.phaseName}</td>
                                             <td>${stage.duration}</td>

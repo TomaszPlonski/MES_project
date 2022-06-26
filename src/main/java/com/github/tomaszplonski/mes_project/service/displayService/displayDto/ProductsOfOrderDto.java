@@ -1,4 +1,4 @@
-package com.github.tomaszplonski.mes_project.service.displayService.displayPOJO;
+package com.github.tomaszplonski.mes_project.service.displayService.displayDto;
 
 
 import com.github.tomaszplonski.mes_project.model.Product;
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductsOfOrderPOJO {
+public class ProductsOfOrderDto {
 
     private Long id;
     private ProductType productType;
@@ -26,9 +26,9 @@ public class ProductsOfOrderPOJO {
     private Integer delay;
     private String actualStageName;
 
-    public static class ProductsOfOrderPOJOBuilder {
+    public static class ProductsOfOrderDtoBuilder {
 
-        public ProductsOfOrderPOJOBuilder status(Product product){
+        public ProductsOfOrderDtoBuilder status(Product product){
             if (product.getProductionMap().size() == 0) {
                 this.status = 0;
             } else if (delay>0) {
@@ -41,7 +41,7 @@ public class ProductsOfOrderPOJO {
             return this;
         }
 
-        public ProductsOfOrderPOJOBuilder predictedEndOfProduction(){
+        public ProductsOfOrderDtoBuilder predictedEndOfProduction(){
 
             this.predictedEndOfProduction = plannedEndOfProduction.with(WorkingDays.addWorkingDays(delay));
             return this;

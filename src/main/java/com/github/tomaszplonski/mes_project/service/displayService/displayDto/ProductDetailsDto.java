@@ -1,4 +1,4 @@
-package com.github.tomaszplonski.mes_project.service.displayService.displayPOJO;
+package com.github.tomaszplonski.mes_project.service.displayService.displayDto;
 
 import com.github.tomaszplonski.mes_project.model.AttributeValue;
 import com.github.tomaszplonski.mes_project.model.TypeAttribute;
@@ -13,7 +13,7 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductDetailsPOJO {
+public class ProductDetailsDto {
 
     private Long orderId;
     private Long productId;

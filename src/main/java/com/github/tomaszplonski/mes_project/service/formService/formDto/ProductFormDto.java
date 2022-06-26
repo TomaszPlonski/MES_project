@@ -1,4 +1,4 @@
-package com.github.tomaszplonski.mes_project.service.formService.formPOJO;
+package com.github.tomaszplonski.mes_project.service.formService.formDto;
 
 import com.github.tomaszplonski.mes_project.model.AttributeValue;
 import com.github.tomaszplonski.mes_project.model.ProductType;
@@ -16,7 +16,7 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductFormPOJO {
+public class ProductFormDto {
 
     private String name;
 

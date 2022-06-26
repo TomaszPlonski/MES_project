@@ -1,15 +1,15 @@
 package com.github.tomaszplonski.mes_project.service.formService;
 
 import com.github.tomaszplonski.mes_project.model.Order;
-import com.github.tomaszplonski.mes_project.service.formService.formPOJO.OrderFormPOJO;
-import com.github.tomaszplonski.mes_project.service.formService.formPOJO.ProductFormPOJO;
-import com.github.tomaszplonski.mes_project.service.formService.formPOJO.TypeFormPOJO;
+import com.github.tomaszplonski.mes_project.service.formService.formDto.OrderFormDto;
+import com.github.tomaszplonski.mes_project.service.formService.formDto.ProductFormDto;
+import com.github.tomaszplonski.mes_project.service.formService.formDto.TypeFormDto;
 
 public interface FormServiceDefault {
 
-    void createType(TypeFormPOJO typeFormPOJO);
+    void createType(TypeFormDto typeFormDto);
 
-    void saveOrder(OrderFormPOJO order);
+    void saveOrder(OrderFormDto order);
 
-    void saveProduct(ProductFormPOJO productFormPOJO, Order order);
+    void saveProduct(ProductFormDto productFormDto, Order order);
 }

@@ -1,4 +1,4 @@
-package com.github.tomaszplonski.mes_project.service.displayService.displayPOJO;
+package com.github.tomaszplonski.mes_project.service.displayService.displayDto;
 
 import com.github.tomaszplonski.mes_project.utils.DaysBetween;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StagesDetailsPOJO {
+public class StagesDetailsDto {
 
     private String phaseName;
 
@@ -26,9 +26,9 @@ public class StagesDetailsPOJO {
 
     private int sequencePosition;
 
-    public static class StagesDetailsPOJOBuilder {
+    public static class StagesDetailsDtoBuilder {
 
-        public StagesDetailsPOJOBuilder delay() {
+        public StagesDetailsDtoBuilder delay() {
             if (actualEndOfStage == null || actualStartOfStage == null) {
                 this.delay = null;
             } else {

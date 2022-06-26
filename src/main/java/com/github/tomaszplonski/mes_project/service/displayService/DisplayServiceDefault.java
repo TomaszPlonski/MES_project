@@ -2,26 +2,26 @@ package com.github.tomaszplonski.mes_project.service.displayService;
 
 import com.github.tomaszplonski.mes_project.model.Order;
 import com.github.tomaszplonski.mes_project.model.Product;
-import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.OrderShowAllPOJO;
-import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.ProductDetailsPOJO;
-import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.ProductsOfOrderPOJO;
-import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.StagesOfProductPOJO;
+import com.github.tomaszplonski.mes_project.service.displayService.displayDto.OrderShowAllDto;
+import com.github.tomaszplonski.mes_project.service.displayService.displayDto.ProductDetailsDto;
+import com.github.tomaszplonski.mes_project.service.displayService.displayDto.ProductsOfOrderDto;
+import com.github.tomaszplonski.mes_project.service.displayService.displayDto.StagesOfProductDto;
 
 import java.util.List;
 
 public interface DisplayServiceDefault {
 
-    List<OrderShowAllPOJO> orderShowAll();
+    List<OrderShowAllDto> orderShowAll();
 
-    List<OrderShowAllPOJO> orderShowInProgressOnly();
+    List<OrderShowAllDto> orderShowInProgressOnly();
 
-    List<OrderShowAllPOJO> orderShowEndedOnly();
+    List<OrderShowAllDto> orderShowEndedOnly();
 
-    List<ProductsOfOrderPOJO> orderDetails(Long orderId);
+    List<ProductsOfOrderDto> orderDetails(Long orderId);
 
-    StagesOfProductPOJO stagesOfProduct(Long productId);
+    StagesOfProductDto stagesOfProduct(Long productId);
 
-    ProductDetailsPOJO productDetails (Long productId);
+    ProductDetailsDto productDetails (Long productId);
 
     void endActiveStage(Long productId);
 
@@ -31,7 +31,7 @@ public interface DisplayServiceDefault {
 
     String getActualPhase(Product product);
 
-    List<OrderShowAllPOJO> buildShowAllPojo(List<Order> orders);
+    List<OrderShowAllDto> buildShowAllPojo(List<Order> orders);
 
 
 }

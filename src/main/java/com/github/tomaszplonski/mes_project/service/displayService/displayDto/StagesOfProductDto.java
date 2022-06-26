@@ -1,4 +1,4 @@
-package com.github.tomaszplonski.mes_project.service.displayService.displayPOJO;
+package com.github.tomaszplonski.mes_project.service.displayService.displayDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StagesOfProductPOJO {
+public class StagesOfProductDto {
 
     private Long orderId;
 
@@ -20,7 +20,7 @@ public class StagesOfProductPOJO {
 
     private String productType;
 
-    private List<StagesDetailsPOJO> stagesDetailsPOJOS;
+    private List<StagesDetailsDto> stagesDetailsDtos;
 
 
 

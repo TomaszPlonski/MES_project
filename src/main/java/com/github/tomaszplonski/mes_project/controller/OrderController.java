@@ -1,9 +1,9 @@
 package com.github.tomaszplonski.mes_project.controller;
 
 import com.github.tomaszplonski.mes_project.model.Order;
-import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.ProductsOfOrderPOJO;
+import com.github.tomaszplonski.mes_project.service.displayService.displayDto.ProductsOfOrderDto;
 import com.github.tomaszplonski.mes_project.service.displayService.DisplayService;
-import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.OrderShowAllPOJO;
+import com.github.tomaszplonski.mes_project.service.displayService.displayDto.OrderShowAllDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class OrderController {
 
     @GetMapping("/")
     public String showAllOrders(Model model){
-        List<OrderShowAllPOJO> orderShowAll = displayService.orderShowAll();
+        List<OrderShowAllDto> orderShowAll = displayService.orderShowAll();
         model.addAttribute("orders",orderShowAll);
         if(!model.containsAttribute("inProgressOrders") && !model.containsAttribute("endedOrders")){
             model.addAttribute("inProgressOrders","checked=\"\"");
@@ -38,7 +38,7 @@ public class OrderController {
         if(order.getId()==null){
             return "404";
         }
-        List<ProductsOfOrderPOJO> orderDetails = displayService.orderDetails(id);
+        List<ProductsOfOrderDto> orderDetails = displayService.orderDetails(id);
 
         model.addAttribute("order",order);
         model.addAttribute("orderDetails",orderDetails);
@@ -55,7 +55,7 @@ public class OrderController {
 
     @PostMapping(params = "inProgressOrders")
     public String viewOnlyInProgressOrders(@RequestParam String inProgressOrders,Model model){
-        List<OrderShowAllPOJO> orderShowInProgressOnly = displayService.orderShowInProgressOnly();
+        List<OrderShowAllDto> orderShowInProgressOnly = displayService.orderShowInProgressOnly();
         model.addAttribute("orders",orderShowInProgressOnly);
         model.addAttribute("inProgressOrders",inProgressOrders);
         model.addAttribute("endedOrders","");
@@ -64,7 +64,7 @@ public class OrderController {
 
     @PostMapping(params = "endedOrders")
     public String viewEndedOrders(@RequestParam String endedOrders, Model model){
-        List<OrderShowAllPOJO> orderShowEndedOnly = displayService.orderShowEndedOnly();
+        List<OrderShowAllDto> orderShowEndedOnly = displayService.orderShowEndedOnly();
         model.addAttribute("orders",orderShowEndedOnly);
         model.addAttribute("endedOrders",endedOrders);
         model.addAttribute("inProgressOrders","");

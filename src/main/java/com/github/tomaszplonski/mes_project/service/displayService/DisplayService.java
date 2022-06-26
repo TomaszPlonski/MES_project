@@ -6,7 +6,7 @@ import com.github.tomaszplonski.mes_project.model.ProductionPhase;
 import com.github.tomaszplonski.mes_project.repository.OrderRepository;
 import com.github.tomaszplonski.mes_project.repository.ProductRepository;
 import com.github.tomaszplonski.mes_project.repository.StageExecutionRepository;
-import com.github.tomaszplonski.mes_project.service.displayService.displayPOJO.*;
+import com.github.tomaszplonski.mes_project.service.displayService.displayDto.*;
 import com.github.tomaszplonski.mes_project.service.entitiService.product.StagesOfProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,31 +28,31 @@ public class DisplayService implements DisplayServiceDefault {
 
     @Transactional
     @Override
-    public List<OrderShowAllPOJO> orderShowAll() {
+    public List<OrderShowAllDto> orderShowAll() {
         return buildShowAllPojo(orderRepository.findAll());
     }
 
     @Transactional
     @Override
-    public List<OrderShowAllPOJO> orderShowInProgressOnly() {
+    public List<OrderShowAllDto> orderShowInProgressOnly() {
         return buildShowAllPojo(orderRepository.findAllByOrderFinishedIsFalse());
     }
 
     @Transactional
     @Override
-    public List<OrderShowAllPOJO> orderShowEndedOnly() {
+    public List<OrderShowAllDto> orderShowEndedOnly() {
         return buildShowAllPojo(orderRepository.findAllByOrderFinishedIsTrue());
     }
 
     @Transactional
     @Override
-    public List<ProductsOfOrderPOJO> orderDetails(Long orderId){
+    public List<ProductsOfOrderDto> orderDetails(Long orderId){
         Order order = getOrderById(orderId);
-        List<ProductsOfOrderPOJO> orderDetails = new ArrayList<>();
+        List<ProductsOfOrderDto> orderDetails = new ArrayList<>();
         List<Product> products = productRepository.findByOrder(order);
 
 
-        products.forEach(p->orderDetails.add(ProductsOfOrderPOJO.builder()
+        products.forEach(p->orderDetails.add(ProductsOfOrderDto.builder()
                         .id(p.getId())
                         .productType(p.getProductType())
                         .delay(stagesOfProductService.getDelayOfProduction(p))
@@ -68,15 +68,15 @@ public class DisplayService implements DisplayServiceDefault {
 
     @Transactional
     @Override
-    public StagesOfProductPOJO stagesOfProduct(Long productId){
+    public StagesOfProductDto stagesOfProduct(Long productId){
         Product product = getProductById(productId);
 
-       return StagesOfProductPOJO.builder()
+       return StagesOfProductDto.builder()
                 .id(product.getId())
                 .orderId(product.getOrder().getId())
                 .productType(product.getProductType().getProductType())
-                .stagesDetailsPOJOS(product.getProductionMap().entrySet().stream()
-                        .map(e->StagesDetailsPOJO.builder()
+                .stagesDetailsDtos(product.getProductionMap().entrySet().stream()
+                        .map(e-> StagesDetailsDto.builder()
                                 .phaseName(e.getKey().getName())
                                 .actualStartOfStage(e.getValue().getActualStartOfStage())
                                 .actualEndOfStage(e.getValue().getActualEndOfStage())
@@ -84,7 +84,7 @@ public class DisplayService implements DisplayServiceDefault {
                                 .delay()
                                 .sequencePosition(e.getKey().getSequencePosition())
                                 .build())
-                        .sorted(Comparator.comparingInt(StagesDetailsPOJO::getSequencePosition))
+                        .sorted(Comparator.comparingInt(StagesDetailsDto::getSequencePosition))
                         .collect(Collectors.toList()))
                 .build();
 
@@ -93,9 +93,9 @@ public class DisplayService implements DisplayServiceDefault {
 
     @Transactional
     @Override
-    public ProductDetailsPOJO productDetails (Long productId){
+    public ProductDetailsDto productDetails (Long productId){
         Product product = getProductById(productId);
-        return ProductDetailsPOJO.builder()
+        return ProductDetailsDto.builder()
                 .productId(productId)
                 .productType(product.getProductType().getProductType())
                 .typeAttributeMap(product.getTypeAttributeMap())
@@ -144,10 +144,10 @@ public class DisplayService implements DisplayServiceDefault {
 
     @Transactional
     @Override
-    public List<OrderShowAllPOJO> buildShowAllPojo(List<Order> orders){
-        List<OrderShowAllPOJO> ordersShowAll = new ArrayList<>();
+    public List<OrderShowAllDto> buildShowAllPojo(List<Order> orders){
+        List<OrderShowAllDto> ordersShowAll = new ArrayList<>();
 
-        orders.forEach(o->ordersShowAll.add(OrderShowAllPOJO.builder()
+        orders.forEach(o->ordersShowAll.add(OrderShowAllDto.builder()
                 .id(o.getId())
                 .name(o.getName())
                 .orderFinished(o.getOrderFinished())
