@@ -34,11 +34,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-
             http.authorizeRequests()
                 .antMatchers( "/login","/test").permitAll()
+                    .antMatchers("/assets/**").permitAll()
                 .antMatchers("/","/**").authenticated()
-                .antMatchers("/css/**").permitAll()
                 .antMatchers("/type/add","/order/add").hasRole("FACTORY")
                 .antMatchers("/stages/end/active").hasRole("OFFICE")
                 .and()
