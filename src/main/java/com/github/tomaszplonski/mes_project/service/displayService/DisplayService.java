@@ -27,11 +27,4 @@ public interface DisplayService {
 
     Order getOrderById(Long orderID);
 
-    Product getProductById(Long productId);
-
-    String getActualPhase(Product product);
-
-    List<OrderShowAllDto> buildShowAllDto(List<Order> orders);
-
-
 }

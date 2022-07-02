@@ -89,7 +89,7 @@ public class FormServiceImpl implements FormService {
 
 
 
-    public void setPhaseSequencePosition(List<ProductionPhase> phases){
+    private void setPhaseSequencePosition(List<ProductionPhase> phases){
         for (int i = 0; i < phases.size(); i++) {
             phases.get(i).setSequencePosition(i+1);
         }
@@ -108,7 +108,7 @@ public class FormServiceImpl implements FormService {
                         , AttributeValue.builder().value(value).build());
     }
 
-    public ProductFormDto getActualProductDto(OrderFormDto order){
+    private ProductFormDto getActualProductDto(OrderFormDto order){
         return order.getProducts().get(order.getProducts().size()-1);
     }
 

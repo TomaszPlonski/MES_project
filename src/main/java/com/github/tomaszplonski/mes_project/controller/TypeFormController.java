@@ -30,9 +30,6 @@ public class TypeFormController {
     @PostMapping(params = "createType")
     public String createType(@Valid @ModelAttribute("typeForm") TypeFormDto typeForm, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            log.debug("===========");
-            bindingResult.getModel().values().forEach(e->log.debug("Values" + e.toString()));
-            bindingResult.getModel().keySet().forEach(e->log.debug("keys" + e));
             return "type/type-create";
         }
         formService.createType(typeForm);

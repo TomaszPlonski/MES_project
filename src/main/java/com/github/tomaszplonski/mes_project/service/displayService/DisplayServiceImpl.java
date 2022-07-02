@@ -115,13 +115,11 @@ public class DisplayServiceImpl implements DisplayService {
         return orderRepository.findById(orderID).orElse(new Order());
     }
 
-    @Override
-    public Product getProductById(Long productId){
+    private Product getProductById(Long productId){
         return productRepository.findById(productId).orElse(new Product());
     }
 
-    @Override
-    public String getActualPhase(Product product){
+    private String getActualPhase(Product product){
         return product.getProductionMap().entrySet().stream()
                 .filter(e-> Objects.equals(e.getValue(),product.getActiveStage()))
                 .map(Map.Entry::getKey)
@@ -129,8 +127,7 @@ public class DisplayServiceImpl implements DisplayService {
                 .orElse(new ProductionPhase()).getName();
     }
 
-    @Override
-    public List<OrderShowAllDto> buildShowAllDto(List<Order> orders){
+    private List<OrderShowAllDto> buildShowAllDto(List<Order> orders){
         List<OrderShowAllDto> ordersShowAll = new ArrayList<>();
 
         orders.forEach(o->ordersShowAll.add(OrderShowAllDto.builder()
